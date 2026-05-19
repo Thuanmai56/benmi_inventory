@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Benmi Inventory Management</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00b900;
+      --primary-dark: #009900;
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --text: #1f2937;
+      --border: #e5e7eb;
+      --red: #ef4444;
+      --orange: #f59e0b;
+    }
+    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+    body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+    
+    .header { background: #fff; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
+    .header h1 { margin: 0; font-size: 18px; font-weight: 800; color: var(--primary); }
+    
+    .tabs { display: flex; background: #fff; border-bottom: 1px solid var(--border); }
+    .tab { flex: 1; text-align: center; padding: 15px; font-weight: 600; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; }
+    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    
+    .content { padding: 20px; max-width: 600px; margin: 0 auto; display: none; }
+    .content.active { display: block; }
+
+    .card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .card h2 { margin: 0 0 15px 0; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #4b5563; }
+    .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 15px; }
+    .form-group input:focus { outline: none; border-color: var(--primary); }
+
+    .btn { background: var(--primary); color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+    .btn:active { background: var(--primary-dark); }
+    .btn.secondary { background: #e5e7eb; color: var(--text); }
+    
+    .row { display: flex; gap: 10px; }
+    .row > div { flex: 1; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
+    th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; }
+    th { color: #6b7280; font-weight: 600; }
+    .diff-negative { color: var(--red); font-weight: bold; }
+    .diff-positive { color: var(--primary); font-weight: bold; }
+
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Benmi Inventory</h1>
+    <div id="today-date" style="font-size: 14px; color: #6b7280;"></div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('employee')">👨‍🍳 Nhân Viên</div>
+    <div class="tab" onclick="switchTab('admin')">🔒 Admin</div>
+  </div>
+
+  <!-- EMPLOYEE TAB -->
+  <div id="tab-employee" class="content active">
+    
+    <!-- NHẬP HÀNG -->
+    <div class="card">
+      <h2>📥 Nhập Hàng (Mua vào)</h2>
+      <div class="form-group">
+        <label>Tên Nguyên Liệu</label>
+        <input type="text" id="imp-name" placeholder="VD: Thịt heo, Pate...">
+      </div>
+      <div class="row">
+        <div class="form-group">
+          <label>Số Lượng</label>
+          <input type="number" id="imp-qty" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label>Đơn Vị</label>
+          <select id="imp-unit">
+            <option value="g">Gram (g)</option>
+            <option value="kg">Kg</option>
+            <option value="ổ">Ổ</option>
+            <option value="chai">Chai</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Tổng Tiền Chi (VNĐ / TWD)</label>
+        <input type="number" id="imp-cost" placeholder="VD: 500000">
+      </div>
+      <button class="btn" onclick="submitImport()">Lưu Nhập Hàng</button>
+    </div>
+
+    <!-- KHAI BÁO BÁN -->
+    <div class="card" style="display: none;">
+      <h2>🍔 Báo Cáo Bán Hàng</h2>
+      <div class="form-group">
+        <label>Món Đã Bán</label>
+        <select id="sale-name">
+          <option value="">Đang tải danh sách...</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Số Lượng Bán (Phần/Ổ)</label>
+        <input type="number" id="sale-qty" placeholder="VD: 50">
+      </div>
+      <button class="btn" onclick="submitSales()">Lưu Số Lượng Bán</button>
+    </div>
+
+    <!-- TỒN KHO THỰC TẾ -->
+    <div class="card">
+      <h2>📦 Khai Báo Tồn Kho Thực Tế (Cuối Ngày)</h2>
+      <p style="font-size: 13px; color: #6b7280; margin-top: 0;">Nhập chính xác số lượng còn lại trong tủ lạnh/kệ.</p>
+      
+      <div id="actual-items-container">
+        <div class="row actual-item-row" style="margin-bottom: 10px;">
+          <div class="form-group" style="margin:0; flex: 2;">
+            <input type="text" class="act-name" placeholder="Tên hàng">
+          </div>
+          <div class="form-group" style="margin:0; flex: 1;">
+            <input type="number" class="act-qty" placeholder="SL">
+          </div>
+          <div class="form-group" style="margin:0; flex: 1;">
+            <select class="act-unit">
+              <option value="g">g</option>
+              <option value="ổ">ổ</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button class="btn secondary" style="margin-bottom: 15px;" onclick="addActualRow()">+ Thêm dòng</button>
+      <button class="btn" onclick="submitActual()">Lưu Tồn Kho Thực Tế</button>
+    </div>
+
+  </div>
+
+  <!-- ADMIN TAB -->
+  <div id="tab-admin" class="content">
+    
+    <div class="card" id="admin-login">
+      <h2>Bảo Mật Quản Lý</h2>
+      <div class="form-group">
+        <label>Mật Khẩu Admin</label>
+        <input type="password" id="admin-pass" placeholder="Nhập mật khẩu...">
+      </div>
+      <button class="btn" onclick="loadReports()">Xem Báo Cáo & Tồn Kho</button>
+    </div>
+
+    <div id="admin-dashboard" style="display: none;">
+      
+      <div class="card" style="background: var(--primary); color: white;">
+        <h2 style="border-color: rgba(255,255,255,0.2);">Tổng Chi Phí Tháng Này</h2>
+        <div style="font-size: 28px; font-weight: 800;" id="report-cost">0</div>
+      </div>
+
+      <button class="btn secondary" style="margin-bottom: 20px;" onclick="document.getElementById('recipe-modal').style.display='block'; renderRecipeEditor();">Quản Lý Định Lượng (Recipes)</button>
+
+      <div class="card">
+        <h2>📊 Đối Chiếu Hao Hụt</h2>
+        <p style="font-size: 13px; color: #6b7280; margin-top: 0;">(Lý thuyết = Nhập - Đã Bán. Hao hụt âm = Thiếu/Thất thoát)</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Nguyên Liệu</th>
+              <th>Lý Thuyết</th>
+              <th>Thực Tế</th>
+              <th>Hao hụt</th>
+            </tr>
+          </thead>
+          <tbody id="report-table">
+            <!-- Data -->
+          </tbody>
+        </table>
+      </div>
+
+      <button class="btn secondary" onclick="document.getElementById('admin-dashboard').style.display='none'; document.getElementById('admin-login').style.display='block';">Đóng</button>
+    </div>
+
+  </div>
+
+  <!-- RECIPE MODAL -->
+  <div id="recipe-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; overflow-y: auto;">
+    <div class="card" style="margin: 20px auto; max-width: 600px; position: relative;">
+      <h2 style="position: sticky; top: -20px; background: white; padding: 20px 0; z-index: 10;">Cài Đặt Định Lượng 
+        <button style="float: right; padding: 5px 10px;" onclick="document.getElementById('recipe-modal').style.display='none';">Đóng</button>
+      </h2>
+      <p style="font-size: 13px; color: #6b7280; margin-top: -10px;">Thay đổi số lượng các nguyên liệu cho từng món.</p>
+      
+      <div id="recipe-editor-container"></div>
+
+      <button class="btn" style="position: sticky; bottom: -20px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1);" onclick="saveRecipes()">Lưu Định Lượng</button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast">Thành công!</div>
+
+  <script>
+    const WORKER_BASE = "https://tonkhobenmi.thuanmnc.workers.dev";
+    let cachedRecipes = {};
+    
+    // Utils
+    function getTodayStr() {
+      const today = new Date(Date.now() + 8 * 3600000);
+      return today.toISOString().split('T')[0];
+    }
+    document.getElementById('today-date').innerText = getTodayStr();
+
+    // Initial Load
+    window.onload = async () => {
+      try {
+        const res = await fetch(`${WORKER_BASE}/api/recipes`);
+        const data = await res.json();
+        if (data.recipes) {
+          cachedRecipes = data.recipes;
+          populateSalesDropdown(data.recipes);
+        }
+      } catch (e) {
+        console.error("Lỗi khi tải danh sách món:", e);
+      }
+    };
+
+    function populateSalesDropdown(recipes) {
+      const select = document.getElementById('sale-name');
+      select.innerHTML = '';
+      for (const itemName in recipes) {
+        const option = document.createElement('option');
+        option.value = itemName;
+        option.innerText = itemName;
+        select.appendChild(option);
+      }
+      select.parentElement.parentElement.style.display = 'block'; // Show card
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.innerText = msg;
+      t.style.opacity = 1;
+      setTimeout(() => t.style.opacity = 0, 3000);
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(e => e.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById(`tab-${tab}`).classList.add('active');
+    }
+
+    function addActualRow() {
+      const container = document.getElementById('actual-items-container');
+      const row = document.createElement('div');
+      row.className = 'row actual-item-row';
+      row.style.marginBottom = '10px';
+      row.innerHTML = `
+        <div class="form-group" style="margin:0; flex: 2;"><input type="text" class="act-name" placeholder="Tên hàng"></div>
+        <div class="form-group" style="margin:0; flex: 1;"><input type="number" class="act-qty" placeholder="SL"></div>
+        <div class="form-group" style="margin:0; flex: 1;"><select class="act-unit"><option value="g">g</option><option value="ổ">ổ</option></select></div>
+      `;
+      container.appendChild(row);
+    }
+
+    // API Calls
+    async function apiCall(endpoint, data) {
+      try {
+        const res = await fetch(`${WORKER_BASE}${endpoint}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...data, date: getTodayStr() })
+        });
+        const result = await res.json();
+        if (res.ok) return result;
+        throw new Error(result.error || "Lỗi server");
+      } catch (e) {
+        alert(e.message);
+        return null;
+      }
+    }
+
+    async function submitImport() {
+      const name = document.getElementById('imp-name').value;
+      const qty = document.getElementById('imp-qty').value;
+      const unit = document.getElementById('imp-unit').value;
+      const cost = document.getElementById('imp-cost').value;
+      if(!name || !qty || !cost) return alert("Vui lòng điền đủ thông tin!");
+      
+      const btn = event.target; btn.disabled = true; btn.innerText = "...";
+      const res = await apiCall('/api/import', { name, qty, unit, cost });
+      btn.disabled = false; btn.innerText = "Lưu Nhập Hàng";
+      
+      if (res) {
+        showToast("Đã lưu nhập hàng!");
+        document.getElementById('imp-name').value = '';
+        document.getElementById('imp-qty').value = '';
+        document.getElementById('imp-cost').value = '';
+      }
+    }
+
+    async function submitSales() {
+      const itemName = document.getElementById('sale-name').value;
+      const qty = document.getElementById('sale-qty').value;
+      if(!qty) return alert("Vui lòng nhập số lượng!");
+      
+      const btn = event.target; btn.disabled = true; btn.innerText = "...";
+      const res = await apiCall('/api/sales', { itemName, qty });
+      btn.disabled = false; btn.innerText = "Lưu Số Lượng Bán";
+      
+      if (res) {
+        showToast("Đã lưu bán hàng!");
+        document.getElementById('sale-qty').value = '';
+      }
+    }
+
+    async function submitActual() {
+      const rows = document.querySelectorAll('.actual-item-row');
+      const items = [];
+      rows.forEach(r => {
+        const name = r.querySelector('.act-name').value;
+        const qty = r.querySelector('.act-qty').value;
+        const unit = r.querySelector('.act-unit').value;
+        if(name && qty) items.push({ name, qty: Number(qty), unit });
+      });
+
+      if(items.length === 0) return alert("Vui lòng điền ít nhất 1 dòng");
+      
+      const btn = event.target; btn.disabled = true; btn.innerText = "...";
+      const res = await apiCall('/api/actual', { items });
+      btn.disabled = false; btn.innerText = "Lưu Tồn Kho Thực Tế";
+      
+      if (res) {
+        showToast("Đã cập nhật kho thực tế!");
+      }
+    }
+
+    async function loadReports() {
+      const password = document.getElementById('admin-pass').value;
+      if(!password) return alert("Nhập mật khẩu!");
+
+      const btn = event.target; btn.disabled = true; btn.innerText = "Đang tải...";
+      const res = await apiCall('/api/reports', { password });
+      btn.disabled = false; btn.innerText = "Xem Báo Cáo & Tồn Kho";
+
+      if (res) {
+        document.getElementById('admin-login').style.display = 'none';
+        document.getElementById('admin-dashboard').style.display = 'block';
+        
+        document.getElementById('report-cost').innerText = res.totalCost.toLocaleString();
+        
+        const tbody = document.getElementById('report-table');
+        tbody.innerHTML = '';
+        res.discrepancies.forEach(d => {
+          let diffClass = '';
+          if(typeof d.actual === 'number') {
+            diffClass = d.diff < 0 ? 'diff-negative' : (d.diff > 0 ? 'diff-positive' : '');
+          }
+          let diffText = d.diff > 0 ? `+${d.diff}` : d.diff;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${d.name}</td>
+            <td>${d.theoretical}</td>
+            <td>${d.actual}</td>
+            <td class="${diffClass}">${typeof d.actual === 'number' ? diffText : '-'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+    }
+
+    // Recipe Management
+    function renderRecipeEditor() {
+      const container = document.getElementById('recipe-editor-container');
+      container.innerHTML = '';
+      
+      for (const itemName in cachedRecipes) {
+        const itemObj = cachedRecipes[itemName];
+        const section = document.createElement('div');
+        section.style.marginBottom = '20px';
+        section.style.padding = '10px';
+        section.style.background = '#f9fafb';
+        section.style.borderRadius = '8px';
+        section.style.border = '1px solid #e5e7eb';
+        
+        let html = `<h3 style="margin-top:0; font-size:15px; color:var(--primary);">${itemName}</h3>`;
+        
+        for (const ingName in itemObj) {
+          const id = `recipe-${encodeURIComponent(itemName)}-${encodeURIComponent(ingName)}`;
+          html += `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 14px;">${ingName}</span>
+              <input type="number" id="${id}" value="${itemObj[ingName]}" style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;" data-item="${itemName}" data-ing="${ingName}">
+            </div>
+          `;
+        }
+        section.innerHTML = html;
+        container.appendChild(section);
+      }
+    }
+
+    async function saveRecipes() {
+      const password = document.getElementById('admin-pass').value;
+      if (!password) return alert("Cần mật khẩu Admin!");
+
+      const newRecipes = JSON.parse(JSON.stringify(cachedRecipes));
+      const inputs = document.querySelectorAll('#recipe-editor-container input');
+      inputs.forEach(input => {
+        const itemName = input.getAttribute('data-item');
+        const ingName = input.getAttribute('data-ing');
+        newRecipes[itemName][ingName] = Number(input.value) || 0;
+      });
+
+      const btn = event.target; btn.disabled = true; btn.innerText = "Đang lưu...";
+      const res = await apiCall('/api/recipes', { password, recipes: newRecipes });
+      btn.disabled = false; btn.innerText = "Lưu Định Lượng";
+
+      if (res) {
+        cachedRecipes = newRecipes;
+        showToast("Đã lưu định lượng thành công!");
+        document.getElementById('recipe-modal').style.display = 'none';
+      }
+    }
+  </script>
+</body>
+</html>
