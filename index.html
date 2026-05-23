@@ -797,12 +797,12 @@
   <!-- Premium Header -->
   <div class="header">
     <div class="brand">
-      <div class="brand-logo">🥖</div>
+      <div class="brand-logo">ðŸ¥–</div>
       <div class="brand-title">Benmi Inventory</div>
     </div>
     <div class="header-right">
       <div class="date-badge" id="today-date">
-        <span>📅</span> <span id="date-text">2026-05-23</span>
+        <span>ðŸ“…</span> <span id="date-text">2026-05-23</span>
       </div>
     </div>
   </div>
@@ -810,8 +810,8 @@
   <!-- Role Tabs bar -->
   <div class="tabs-container">
     <div class="tabs">
-      <button class="tab active" onclick="switchRole('employee', this)">👨‍🍳 Kitchen / Nhân Viên</button>
-      <button class="tab" onclick="switchRole('admin', this)">🔒 Owner / Quản Lý</button>
+      <button class="tab active" onclick="switchRole('employee', this)">ðŸ‘¨â€ðŸ³ Kitchen / NhÃ¢n ViÃªn</button>
+      <button class="tab" onclick="switchRole('admin', this)">ðŸ”’ Owner / Quáº£n LÃ½</button>
     </div>
   </div>
 
@@ -823,51 +823,42 @@
     <!-- ======================================================== -->
     <div id="tab-employee" class="content active">
       
-      <!-- 📥 NHẬP HÀNG CARD -->
+      <!-- ðŸ“¥ NHáº¬P HÃ€NG CARD -->
       <div class="card">
-        <h2>📥 Nhập Hàng Mới (Purchase)</h2>
+        <h2>ðŸ“¥ Nháº­p HÃ ng Má»›i (Purchase)</h2>
         
         <div class="form-group">
-          <label>Tên Nguyên Liệu</label>
+          <label>TÃªn NguyÃªn Liá»‡u</label>
           <select id="imp-name" onchange="onImportNameSelect(this.value)">
-            <option value="">-- Chọn hoặc nhập tự do bên dưới --</option>
-            <option value="Bánh mì (ổ)">🥖 Bánh mì (ổ)</option>
-            <option value="Thịt xíu (g)">🍖 Thịt xíu (g)</option>
-            <option value="Chả (lát)">🥩 Chả (lát)</option>
-            <option value="Thịt gà (g)">🍗 Thịt gà (g)</option>
-            <option value="Thịt nướng (lát)">🍢 Thịt nướng (lát)</option>
-            <option value="Phô mai (lát)">🧀 Phô mai (lát)</option>
-            <option value="Đồ chua (g)">🥕 Đồ chua (g)</option>
-            <option value="Bơ (g)">🧈 Bơ (g)</option>
-            <option value="Pate (g)">🧆 Pate (g)</option>
-            <option value="Ly (cái)">🥛 Ly (cái)</option>
-            <option value="Nắp (cái)">🥤 Nắp (cái)</option>
-            <option value="Giấy gói (cái)">📄 Giấy gói (cái)</option>
-            <option value="Túi nilong (cái)">🛍️ Túi nilong (cái)</option>
+            <option value="">-- Chá»n nguyÃªn liá»‡u thÃ´ --</option>
           </select>
-          <input type="text" id="imp-name-custom" placeholder="Gõ tên nguyên liệu khác nếu không có trong list..." style="margin-top: 10px;">
+          <input type="text" id="imp-name-custom" placeholder="GÃµ tÃªn nguyÃªn liá»‡u khÃ¡c náº¿u khÃ´ng cÃ³ trong list..." style="margin-top: 10px; display: none;">
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label>Số Lượng Nhập</label>
-            <input type="number" id="imp-qty" placeholder="Nhập số lượng..." min="0" oninput="calculateUnitCost()">
+            <label>Sá»‘ LÆ°á»£ng Nháº­p</label>
+            <input type="number" id="imp-qty" placeholder="Nháº­p sá»‘ lÆ°á»£ng..." min="0" oninput="calculateUnitCost()">
           </div>
           <div class="form-group">
-            <label>Đơn Vị</label>
+            <label>ÄÆ¡n Vá»‹</label>
             <select id="imp-unit">
-              <option value="g">Gram (g)</option>
-              <option value="ổ">Ổ</option>
-              <option value="lát">Lát</option>
-              <option value="cái">Cái</option>
+              <option value="gr">Gram (gr)</option>
+              <option value="ml">Millilit (ml)</option>
+              <option value="pcs">CÃ¡i (pcs)</option>
+              <option value="á»•">á»”</option>
+              <option value="lÃ¡t">LÃ¡t</option>
               <option value="chai">Chai</option>
+              <option value="gÃ³i">GÃ³i</option>
+              <option value="bag">TÃºi (bag)</option>
+              <option value="pack">Há»™p (pack)</option>
               <option value="kg">Kilogram (kg)</option>
             </select>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Tổng Tiền Chi (TWD / VNĐ)</label>
+          <label>Tá»•ng Tiá»n Chi (TWD / VNÄ)</label>
           <div class="input-wrapper">
             <span style="position: absolute; left: 16px; top: 14px; font-weight: 700; color: var(--text-muted);">$</span>
             <input type="number" id="imp-cost" placeholder="0.00" min="0" style="padding-left: 32px;" oninput="calculateUnitCost()">
@@ -875,26 +866,63 @@
         </div>
 
         <div id="unit-cost-preview" style="font-size: 14px; font-weight: 600; color: var(--primary); margin-top:-10px; margin-bottom: 18px; display: none;">
-          Đơn giá ước tính: $0/đơn vị
+          ÄÆ¡n giÃ¡ Æ°á»›c tÃ­nh: $0/Ä‘Æ¡n vá»‹
         </div>
 
-        <button class="btn" onclick="submitImport(this)">💾 Lưu Nhập Hàng</button>
+        <button class="btn" onclick="submitImport(this)">ðŸ’¾ LÆ°u Nháº­p HÃ ng</button>
       </div>
 
-      <!-- 📦 KIỂM KHO THỰC TẾ CARD -->
+      <!-- ðŸ³ GHI NHáº¬N CHáº¾ BIáº¾N BÃN THÃ€NH PHáº¨M CARD -->
       <div class="card">
-        <h2>📦 Báo Cáo Tồn Kho Cuối Ngày (Physical Count)</h2>
+        <h2>ðŸ³ Ghi Nháº­n Cháº¿ Biáº¿n BÃ¡n ThÃ nh Pháº©m (Production Yield)</h2>
         <p style="font-size: 14px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
-          Nhân viên đếm và nhập số lượng tồn kho còn lại trong tủ lạnh/kệ trước khi đóng cửa quán.
+          NhÃ¢n viÃªn nháº­p sá»‘ lÆ°á»£ng kháº©u pháº§n thá»±c táº¿ Ä‘áº¿m Ä‘Æ°á»£c sau khi hoÃ n thÃ nh má»™t máº» cháº¿ biáº¿n bÃ¡n thÃ nh pháº©m (vÃ­ dá»¥: NÆ°á»›c sá»‘t, Thá»‹t nÆ°á»›ng...) Ä‘á»ƒ tÃ­nh toÃ¡n giÃ¡ vá»‘n chÃ­nh xÃ¡c.
         </p>
-
-        <!-- Dynamic Kitchen Friendly Counter List -->
-        <div id="actual-ingredients-list">
-          <!-- Populated dynamically with active recipe ingredients -->
-          <div style="text-align: center; padding: 20px; color: var(--text-muted);">Đang tải danh sách nguyên liệu...</div>
+        
+        <div class="form-group">
+          <label>BÃ¡n ThÃ nh Pháº©m Cháº¿ Biáº¿n</label>
+          <select id="prod-name" onchange="onProductionNameSelect(this.value)">
+            <option value="">-- Chá»n bÃ¡n thÃ nh pháº©m --</option>
+            <option value="ThitNuongUop">ðŸ¢ Thá»‹t nÆ°á»›ng Æ°á»›p (Thá»‹t nÆ°á»›ng)</option>
+            <option value="Ga">ðŸ— GÃ  náº¥u sáºµn (GÃ )</option>
+            <option value="DoChua">ðŸ¥• Äá»“ chua tá»± lÃ m (Äá»“ chua)</option>
+            <option value="ThitXaXiu">ðŸ– Thá»‹t xÃ¡ xÃ­u (Thá»‹t xÃ­u)</option>
+            <option value="NuocSot">ðŸ¥« NÆ°á»›c sá»‘t chuáº©n vá»‹ (NÆ°á»›c sá»‘t)</option>
+            <option value="DuongSyrup">ðŸ¯ ÄÆ°á»ng syrup (Syrup)</option>
+          </select>
         </div>
 
-        <button class="btn" style="margin-top: 12px;" onclick="submitActual(this)">📤 Gửi Tồn Kho Thực Tế</button>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Sáº£n LÆ°á»£ng Thá»±c Táº¿ Äáº¡t ÄÆ°á»£c</label>
+            <input type="number" id="prod-yield" placeholder="Nháº­p sáº£n lÆ°á»£ng thá»±c táº¿..." min="0">
+          </div>
+          <div class="form-group">
+            <label>ÄÆ¡n Vá»‹ Sáº£n LÆ°á»£ng</label>
+            <input type="text" id="prod-unit" readonly style="background: #F3F4F6;" placeholder="ÄÆ¡n vá»‹...">
+          </div>
+        </div>
+
+        <div id="production-default-hint" style="font-size: 14px; font-weight: 600; color: var(--text-muted); margin-top:-10px; margin-bottom: 18px; display: none;">
+          Sáº£n lÆ°á»£ng máº·c Ä‘á»‹nh: 125 suáº¥t
+        </div>
+
+        <button class="btn" style="background: linear-gradient(135deg, var(--accent), #D97706); box-shadow: 0 4px 12px rgba(217, 119, 6, 0.2);" onclick="submitProduction(this)">ðŸ³ LÆ°u Ghi Nháº­n Cháº¿ Biáº¿n</button>
+      </div>
+
+      <!-- ðŸ“¦ KIá»‚M KHO THá»°C Táº¾ CARD -->
+      <div class="card">
+        <h2>ðŸ“¦ BÃ¡o CÃ¡o Tá»“n Kho Cuá»‘i NgÃ y (Physical Count)</h2>
+        <p style="font-size: 14px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
+          NhÃ¢n viÃªn Ä‘áº¿m vÃ  nháº­p sá»‘ lÆ°á»£ng tá»“n kho cÃ²n láº¡i trong tá»§ láº¡nh/ká»‡ trÆ°á»›c khi Ä‘Ã³ng cá»­a quÃ¡n.
+        </p>
+
+        <!-- Dynamic Kitchen Friendly Counter List by Categories -->
+        <div id="actual-ingredients-list">
+          <div style="text-align: center; padding: 20px; color: var(--text-muted);">Äang táº£i danh sÃ¡ch nguyÃªn liá»‡u...</div>
+        </div>
+
+        <button class="btn" style="margin-top: 24px;" onclick="submitActual(this)">ðŸ“¤ Gá»­i Tá»“n Kho Thá»±c Táº¿</button>
       </div>
 
     </div>
@@ -904,7 +932,7 @@
     <!-- ======================================================== -->
     <div id="tab-admin-secure" class="content">
       <div class="card passcode-overlay">
-        <div class="pad-title">🔒 Xác Minh Quyền Quản Lý (Owner)</div>
+        <div class="pad-title">ðŸ”’ XÃ¡c Minh Quyá»n Quáº£n LÃ½ (Owner)</div>
         <div class="dots-container" id="passcode-dots-wrap" style="margin-bottom: 24px; min-height: 36px; display: flex; align-items: center; justify-content: center;">
           <div style="font-size: 28px; letter-spacing: 8px; color: var(--primary); font-weight: bold;" id="masked-passcode-preview"></div>
         </div>
@@ -918,7 +946,7 @@
           <button class="key" onclick="pressKey(7)">7</button>
           <button class="key" onclick="pressKey(8)">8</button>
           <button class="key" onclick="pressKey(9)">9</button>
-          <button class="key backspace" onclick="pressKey('back')">⌫</button>
+          <button class="key backspace" onclick="pressKey('back')">âŒ«</button>
           <button class="key" onclick="pressKey(0)">0</button>
           <button class="key" style="border-color: var(--primary); color: var(--primary); font-size:18px;" onclick="pressKey('ok')">OK</button>
         </div>
@@ -932,9 +960,10 @@
       
       <!-- Sub Tabs Bar -->
       <div class="admin-sub-tabs">
-        <button class="sub-tab active" onclick="switchAdminSub('dashboard', this)">📊 Phân Tích Doanh Thu & Giá Vốn</button>
-        <button class="sub-tab" onclick="switchAdminSub('hao-hut', this)">🔍 Đối Chiếu Thất Thoát</button>
-        <button class="sub-tab" onclick="switchAdminSub('recipes', this)">📐 Định Lượng Recipes</button>
+        <button class="sub-tab active" onclick="switchAdminSub('dashboard', this)">ðŸ“Š PhÃ¢n TÃ­ch Doanh Thu & GiÃ¡ Vá»‘n</button>
+        <button class="sub-tab" onclick="switchAdminSub('hao-hut', this)">ðŸ” Äá»‘i Chiáº¿u Tháº¥t ThoÃ¡t</button>
+        <button class="sub-tab" onclick="switchAdminSub('recipes', this)">ðŸ“ Äá»‹nh LÆ°á»£ng Recipes</button>
+        <button class="sub-tab" onclick="switchAdminSub('sync', this)">ðŸ”„ Äá»“ng Bá»™ Google Sheet</button>
       </div>
 
       <!-- 1. SUB-TAB: ANALYTICS & FOOD COST -->
@@ -942,11 +971,11 @@
         
         <div class="metrics-grid">
           <div class="metric-card primary-grad">
-            <div class="metric-title">Tổng chi nguyên liệu (Tháng)</div>
+            <div class="metric-title">Tá»•ng chi nguyÃªn liá»‡u (ThÃ¡ng)</div>
             <div class="metric-value" id="report-cost">$0</div>
           </div>
           <div class="metric-card">
-            <div class="metric-title">Biên lợi nhuận trung bình</div>
+            <div class="metric-title">BiÃªn lá»£i nhuáº­n trung bÃ¬nh</div>
             <div class="metric-value" id="report-avg-margin" style="color: var(--success);">--%</div>
           </div>
         </div>
@@ -955,50 +984,142 @@
         <div id="low-stock-alert-wrap" style="display: none;"></div>
 
         <div class="card">
-          <h2>🍔 Phân Tích Lợi Nhuận Từng Món (Retail vs Food Cost)</h2>
+          <h2>ðŸ“Š PhÃ¢n TÃ­ch Chi Tiáº¿t GiÃ¡ Vá»‘n 3 Táº§ng (Cascading CoGS)</h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
-            Tính giá vốn nguyên liệu thực tế dựa trên công thức Recipes và giá nhập trung bình, so sánh với giá bán lẻ trên hệ thống đặt hàng.
+            Há»‡ thá»‘ng tá»± Ä‘á»™ng liÃªn káº¿t: Táº§ng 1 (HÃ³a Ä‘Æ¡n mua nguyÃªn liá»‡u gáº§n nháº¥t) âž” Táº§ng 2 (Chi phÃ­ cháº¿ biáº¿n máº» bÃ¡n thÃ nh pháº©m theo sáº£n lÆ°á»£ng thá»±c táº¿) âž” Táº§ng 3 (Tá»•ng giÃ¡ vá»‘n rÃ²ng cá»§a mÃ³n Äƒn bÃ¡n láº»).
           </p>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Món Ăn</th>
-                  <th>Giá Bán Lẻ</th>
-                  <th>Giá Vốn (Food Cost)</th>
-                  <th>Biên Lợi Nhuận (%)</th>
-                </tr>
-              </thead>
-              <tbody id="profit-margin-table-body">
-                <!-- Calculated dynamically from recipes & prices -->
-                <tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Đang tải và tính toán...</td></tr>
-              </tbody>
-            </table>
+
+          <!-- Táº¦NG 1 COLLAPSE -->
+          <div class="accordion-item" id="cogs-tier1-accordion">
+            <div class="accordion-header" onclick="toggleAccordionCustom('cogs-tier1')">
+              <div class="accordion-header-left">
+                <span style="font-size:18px;">ðŸŒ±</span>
+                <div>
+                  <div style="font-size:15px; font-weight: 800;">Táº§ng 1: ÄÆ¡n GiÃ¡ NguyÃªn Liá»‡u ThÃ´ (Raw Materials)</div>
+                  <div class="accordion-title-trans">69 nguyÃªn liá»‡u trong kho - cáº­p nháº­t theo giÃ¡ hÃ³a Ä‘Æ¡n má»›i nháº¥t</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span id="cogs-tier1-arrow" style="font-size: 14px;">â–¼</span>
+              </div>
+            </div>
+            <div class="accordion-body" id="cogs-tier1-body" style="max-height: 0; overflow: hidden; padding: 0;">
+              <div class="table-container" style="border: none; border-radius: 0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>NguyÃªn Liá»‡u</th>
+                      <th>NhÃ³m</th>
+                      <th>GiÃ¡ Google Sheet</th>
+                      <th>GiÃ¡ Thá»±c Táº¿ (HÃ³a ÄÆ¡n)</th>
+                      <th>Nguá»“n GiÃ¡</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tier1-table-body">
+                    <!-- Dynamic Tier 1 rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
+
+          <!-- Táº¦NG 2 COLLAPSE -->
+          <div class="accordion-item" id="cogs-tier2-accordion">
+            <div class="accordion-header" onclick="toggleAccordionCustom('cogs-tier2')">
+              <div class="accordion-header-left">
+                <span style="font-size:18px;">ðŸ³</span>
+                <div>
+                  <div style="font-size:15px; font-weight: 800;">Táº§ng 2: GiÃ¡ Vá»‘n BÃ¡n ThÃ nh Pháº©m (Semi-Finished)</div>
+                  <div class="accordion-title-trans">6 nguyÃªn liá»‡u sÆ¡ cháº¿ - tÃ­nh theo máº» sáº£n lÆ°á»£ng thá»±c táº¿ nháº­p tay</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span id="cogs-tier2-arrow" style="font-size: 14px;">â–¼</span>
+              </div>
+            </div>
+            <div class="accordion-body" id="cogs-tier2-body" style="max-height: 0; overflow: hidden; padding: 0;">
+              <div class="table-container" style="border: none; border-radius: 0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>BÃ¡n ThÃ nh Pháº©m</th>
+                      <th>GiÃ¡ Vá»‘n Máº» (Táº§ng 1)</th>
+                      <th>Sáº£n LÆ°á»£ng (Máº»)</th>
+                      <th>ÄÆ¡n GiÃ¡ / Suáº¥t</th>
+                      <th>So Vá»›i Máº·c Äá»‹nh</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tier2-table-body">
+                    <!-- Dynamic Tier 2 rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Táº¦NG 3 COLLAPSE -->
+          <div class="accordion-item" id="cogs-tier3-accordion">
+            <div class="accordion-header" onclick="toggleAccordionCustom('cogs-tier3')">
+              <div class="accordion-header-left">
+                <span style="font-size:18px;">ðŸ¥ª</span>
+                <div>
+                  <div style="font-size:15px; font-weight: 800;">Táº§ng 3: BiÃªn Lá»£i Nhuáº­n Menu MÃ³n Ä‚n (Retail CoGS)</div>
+                  <div class="accordion-title-trans">27 mÃ³n trong thá»±c Ä‘Æ¡n - tÃ­nh tá»« giÃ¡ thÃ´ Táº§ng 1 vÃ  sÆ¡ cháº¿ Táº§ng 2</div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center;">
+                <span id="cogs-tier3-arrow" style="font-size: 14px;">â–¼</span>
+              </div>
+            </div>
+            <div class="accordion-body" id="cogs-tier3-body" style="max-height: 0; overflow: hidden; padding: 0;">
+              <div class="table-container" style="border: none; border-radius: 0;">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>MÃ³n Ä‚n</th>
+                      <th>GiÃ¡ BÃ¡n</th>
+                      <th>Food Cost Thá»±c Táº¿</th>
+                      <th>Food Cost %</th>
+                      <th>BiÃªn Lá»£i Nhuáº­n</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tier3-table-body">
+                    <!-- Dynamic Tier 3 rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Legacy table mirror block hidden -->
+        <div style="display: none;">
+          <table><tbody id="profit-margin-table-body"></tbody></table>
         </div>
       </div>
 
       <!-- 2. SUB-TAB: RECONCILIATION & LOSS AUDITING -->
       <div id="admin-sub-hao-hut" class="admin-sub-content" style="display: none;">
         <div class="card">
-          <h2>🔍 Bảng Đối Chiếu Thất Thoát / Hao Hụt Chi Tiết</h2>
+          <h2>ðŸ” Báº£ng Äá»‘i Chiáº¿u Tháº¥t ThoÃ¡t / Hao Há»¥t Chi Tiáº¿t</h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
-            Hao Hụt = Tồn Thực Tế - Tồn Lý Thuyết (Dựa trên Nhật ký Bán & Nhập). Hao hụt âm thể hiện hàng bị thất thoát/lãng phí, quy đổi thành số tiền mặt thực tế thất thoát.
+            Hao Há»¥t = Tá»“n Thá»±c Táº¿ - Tá»“n LÃ½ Thuyáº¿t (Dá»±a trÃªn Nháº­t kÃ½ BÃ¡n, Cháº¿ biáº¿n & Nháº­p). Hao há»¥t Ã¢m thá»ƒ hiá»‡n hÃ ng bá»‹ tháº¥t thoÃ¡t/lÃ£ng phÃ­, quy Ä‘á»•i thÃ nh sá»‘ tiá»n máº·t thá»±c táº¿ tháº¥t thoÃ¡t.
           </p>
           <div class="table-container">
             <table>
               <thead>
                 <tr>
-                  <th>Nguyên Vật Liệu</th>
-                  <th>Tồn Sổ Sách</th>
-                  <th>Tồn Thực Tế</th>
-                  <th>Chênh Lệch</th>
-                  <th>Quy Thành Tiền Thất Thoát</th>
+                  <th>NguyÃªn Váº­t Liá»‡u</th>
+                  <th>Tá»“n Sá»• SÃ¡ch</th>
+                  <th>Tá»“n Thá»±c Táº¿</th>
+                  <th>ChÃªnh Lá»‡ch</th>
+                  <th>Quy ThÃ nh Tiá»n Tháº¥t ThoÃ¡t</th>
                 </tr>
               </thead>
               <tbody id="report-table-body">
                 <!-- Discrepancy details -->
-                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Đang tính toán hao hụt...</td></tr>
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Äang tÃ­nh toÃ¡n hao há»¥t...</td></tr>
               </tbody>
             </table>
           </div>
@@ -1008,16 +1129,38 @@
       <!-- 3. SUB-TAB: INTERACTIVE RECIPE CONFIGURATOR -->
       <div id="admin-sub-recipes" class="admin-sub-content" style="display: none;">
         <div class="card">
-          <h2>📐 Trình Chỉnh Sửa Định Lượng (Recipe Editor) Thông Minh</h2>
+          <h2>ðŸ“ TrÃ¬nh Chá»‰nh Sá»­a Äá»‹nh LÆ°á»£ng (Recipe Editor) ThÃ´ng Minh</h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
-            Nhấn vào từng món bánh mì để xem và điều chỉnh định lượng nguyên liệu bằng thanh kéo. Biên lợi nhuận và giá vốn của món sẽ tự động tính toán lại theo thời gian thực!
+            Nháº¥n vÃ o tá»«ng mÃ³n bÃ¡nh mÃ¬ Ä‘á»ƒ xem vÃ  Ä‘iá»u chá»‰nh Ä‘á»‹nh lÆ°á»£ng nguyÃªn liá»‡u báº±ng thanh kÃ©o. BiÃªn lá»£i nhuáº­n vÃ  giÃ¡ vá»‘n cá»§a mÃ³n sáº½ tá»± Ä‘á»™ng tÃ­nh toÃ¡n láº¡i theo thá»i gian thá»±c!
           </p>
           <div id="recipe-editor-container">
             <!-- Accordion populated from recipes -->
-            <div style="text-align: center; color: var(--text-muted); padding: 20px;">Đang thiết lập định lượng...</div>
+            <div style="text-align: center; color: var(--text-muted); padding: 20px;">Äang thiáº¿t láº­p Ä‘á»‹nh lÆ°á»£ng...</div>
           </div>
           
-          <button class="btn" style="margin-top: 20px;" onclick="saveRecipes(this)">💾 Lưu Thay Đổi Định Lượng</button>
+          <button class="btn" style="margin-top: 20px;" onclick="saveRecipes(this)">ðŸ’¾ LÆ°u Thay Äá»•i Äá»‹nh LÆ°á»£ng</button>
+        </div>
+      </div>
+
+      <!-- 4. SUB-TAB: GOOGLE SHEET SYNC -->
+      <div id="admin-sub-sync" class="admin-sub-content" style="display: none;">
+        <div class="card">
+          <h2>ðŸ”„ Äá»“ng Bá»™ Dá»¯ Liá»‡u Google Sheet (Apps Script Web App)</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
+            Äá»“ng bá»™ hÃ³a danh má»¥c nguyÃªn liá»‡u, cÃ´ng thá»©c cháº¿ biáº¿n bÃ¡n thÃ nh pháº©m, vÃ  Ä‘á»‹nh lÆ°á»£ng menu trá»±c tiáº¿p tá»« Google Sheet cá»§a Owner. Dá»¯ liá»‡u sáº½ Ä‘Æ°á»£c cache trÃªn KV Ä‘á»ƒ tá»‘i Æ°u hiá»‡u nÄƒng.
+          </p>
+          
+          <div class="form-group">
+            <label>ÄÆ°á»ng Dáº«n Web App Google Apps Script</label>
+            <input type="text" id="sync-url" placeholder="https://script.google.com/macros/s/.../exec">
+            <p style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">
+              DÃ¡n URL Apps Script Ä‘Ã£ Ä‘Æ°á»£c deploy cá»§a báº¡n á»Ÿ trÃªn.
+            </p>
+          </div>
+
+          <button class="btn" style="background: linear-gradient(135deg, var(--success), #059669); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);" onclick="syncGoogleSheet(this)">ðŸ”„ Äá»“ng Bá»™ Live Ngay Láº­p Tá»©c</button>
+          
+          <div id="sync-status" style="margin-top: 16px; font-size: 14px; font-weight: 600; display: none;"></div>
         </div>
       </div>
 
@@ -1027,8 +1170,8 @@
 
   <!-- Notification Toast -->
   <div id="toast" class="toast">
-    <span class="toast-icon">✓</span>
-    <span id="toast-text">Thành công!</span>
+    <span class="toast-icon">âœ“</span>
+    <span id="toast-text">ThÃ nh cÃ´ng!</span>
   </div>
 
   <!-- JavaScript logic -->
@@ -1036,10 +1179,14 @@
     const WORKER_INVENTORY_BASE = "https://tonkhobenmi.thuanmnc.workers.dev";
     const WORKER_MENU_BASE = "https://benmi-worker-official.thuanmnc.workers.dev";
     
+    // Default sheet config parsed offline fallback
+    let cachedSheetConfig = {"rawMaterials":[{"category":"Bánh mì","name":"Giòn","packSize":50,"unit":"pcs","packPrice":900,"defaultUnitCost":16.8,"supplier":""},{"category":"Bánh mì","name":"Mềm","packSize":20,"unit":"pcs","packPrice":200,"defaultUnitCost":12.6,"supplier":"陳小姐"},{"category":"Thịt","name":"Pork","packSize":12000,"unit":"gr","packPrice":1920,"defaultUnitCost":0.16,"supplier":"佳昌生鮮肉品"},{"category":"Thịt","name":"Vietnamese Pork Ham","packSize":54,"unit":"pcs","packPrice":105,"defaultUnitCost":1.944444444,"supplier":"Bảo đại"},{"category":"Thịt","name":"Sausage","packSize":10,"unit":"pcs","packPrice":80,"defaultUnitCost":8,"supplier":"Bảo đại"},{"category":"Thịt","name":"Ham","packSize":90,"unit":"pcs","packPrice":230,"defaultUnitCost":2.555555556,"supplier":""},{"category":"Thịt","name":"Cheese lát","packSize":84,"unit":"pcs","packPrice":330,"defaultUnitCost":3.928571429,"supplier":""},{"category":"Thịt","name":"Cheese bột","packSize":1000,"unit":"gr","packPrice":265,"defaultUnitCost":0.265,"supplier":""},{"category":"Thịt","name":"Pate","packSize":260,"unit":"gr","packPrice":45,"defaultUnitCost":0.1730769231,"supplier":""},{"category":"Thịt","name":"Egg","packSize":12,"unit":"pcs","packPrice":56,"defaultUnitCost":4.666666667,"supplier":""},{"category":"Rau củ","name":"Pinapple","packSize":600,"unit":"gr","packPrice":80,"defaultUnitCost":0.1333333333,"supplier":"Nhà cung cấp 2\nLiên hệ:"},{"category":"Rau củ","name":"Tomato","packSize":500,"unit":"gr","packPrice":50,"defaultUnitCost":0.1,"supplier":""},{"category":"Rau củ","name":"Cucumber","packSize":1,"unit":"pcs","packPrice":12,"defaultUnitCost":12,"supplier":"Nhà cung cấp 3\nLiên hệ:"},{"category":"Rau củ","name":"Carrot","packSize":1,"unit":"pcs","packPrice":15,"defaultUnitCost":15,"supplier":""},{"category":"Rau củ","name":"White radish","packSize":1,"unit":"pcs","packPrice":35,"defaultUnitCost":35,"supplier":""},{"category":"Rau củ","name":"Shallot","packSize":0,"unit":"","packPrice":0,"defaultUnitCost":0,"supplier":""},{"category":"Rau củ","name":"Garlic","packSize":0,"unit":"","packPrice":0,"defaultUnitCost":0,"supplier":""},{"category":"Rau củ","name":"Rau răm","packSize":0,"unit":"","packPrice":25,"defaultUnitCost":0,"supplier":""},{"category":"Rau củ","name":"Lemon grass","packSize":5,"unit":"pcs","packPrice":30,"defaultUnitCost":6,"supplier":""},{"category":"Gia vị","name":"Fish sauce","packSize":900,"unit":"ml","packPrice":78,"defaultUnitCost":0.08666666667,"supplier":""},{"category":"Gia vị","name":"Condensed milk","packSize":405,"unit":"gr","packPrice":53,"defaultUnitCost":0.1308641975,"supplier":"Tiệm keke"},{"category":"Gia vị","name":"5 flavors Powder","packSize":1000,"unit":"gr","packPrice":230,"defaultUnitCost":0.23,"supplier":""},{"category":"Gia vị","name":"Barbecue Sauce","packSize":200,"unit":"gr","packPrice":37,"defaultUnitCost":0.185,"supplier":""},{"category":"Gia vị","name":"Oil","packSize":2600,"unit":"ml","packPrice":175,"defaultUnitCost":0.06730769231,"supplier":""},{"category":"Gia vị","name":"Sugar","packSize":1000,"unit":"gr","packPrice":36,"defaultUnitCost":0.036,"supplier":"carrefour"},{"category":"Gia vị","name":"Chilli Sauce","packSize":500,"unit":"gr","packPrice":34,"defaultUnitCost":0.068,"supplier":"hàng việt"},{"category":"Gia vị","name":"Tomato sauce","packSize":700,"unit":"gr","packPrice":95,"defaultUnitCost":0.1357142857,"supplier":""},{"category":"Gia vị","name":"Mayonnaise","packSize":500,"unit":"gr","packPrice":65,"defaultUnitCost":0.13,"supplier":"keke"},{"category":"Gia vị","name":"Oyster sauce","packSize":1200,"unit":"gr","packPrice":80,"defaultUnitCost":0.06666666667,"supplier":"chợ"},{"category":"Gia vị","name":"MSG","packSize":1000,"unit":"gr","packPrice":120,"defaultUnitCost":0.12,"supplier":"dnex"},{"category":"Gia vị","name":"Broth mix","packSize":900,"unit":"gr","packPrice":130,"defaultUnitCost":0.1444444444,"supplier":""},{"category":"Gia vị","name":"Soya sauce","packSize":500,"unit":"ml","packPrice":50,"defaultUnitCost":0.1,"supplier":""},{"category":"Gia vị","name":"Pepper","packSize":600,"unit":"gr","packPrice":280,"defaultUnitCost":0.4666666667,"supplier":"chợ"},{"category":"Gia vị","name":"Vinegar","packSize":1000,"unit":"ml","packPrice":42,"defaultUnitCost":0.042,"supplier":"hàng việt"},{"category":"Gia vị","name":"Salt","packSize":1000,"unit":"gr","packPrice":20,"defaultUnitCost":0.02,"supplier":""},{"category":"Gia vị","name":"Butter","packSize":100,"unit":"gr","packPrice":60,"defaultUnitCost":0.6,"supplier":""},{"category":"Gia vị","name":"Coconut","packSize":330,"unit":"ml","packPrice":28,"defaultUnitCost":0.08484848485,"supplier":""},{"category":"Gia vị","name":"Korean Chilli powder","packSize":100,"unit":"gr","packPrice":60,"defaultUnitCost":0.6,"supplier":""},{"category":"Gia vị","name":"Water","packSize":1000000,"unit":"ml","packPrice":9.24,"defaultUnitCost":9.24E-06,"supplier":""},{"category":"Gia vị","name":"Tarpioca Starch","packSize":600,"unit":"gr","packPrice":25,"defaultUnitCost":0.04166666667,"supplier":""},{"category":"Nước","name":"Cà phê sữa","packSize":1,"unit":"gói","packPrice":0,"defaultUnitCost":3.49,"supplier":""},{"category":"Nước","name":"Cà phê đen","packSize":1,"unit":"gói","packPrice":0,"defaultUnitCost":2.466666667,"supplier":""},{"category":"Nước","name":"Milk","packSize":936,"unit":"ml","packPrice":69,"defaultUnitCost":0.07371794872,"supplier":""},{"category":"Nước","name":"Caramel syrup","packSize":500,"unit":"gr","packPrice":150,"defaultUnitCost":0.3,"supplier":""},{"category":"Nước","name":"Oolong tea 50g/bag","packSize":18,"unit":"bag","packPrice":100,"defaultUnitCost":5.555555556,"supplier":""},{"category":"Nước","name":"Wheat Flavored Black Tea 2000cc","packSize":10,"unit":"bag","packPrice":100,"defaultUnitCost":10,"supplier":""},{"category":"Nước","name":"Whipping Cream","packSize":1000,"unit":"ml","packPrice":135,"defaultUnitCost":0.135,"supplier":""},{"category":"Nước","name":"Coconut Cream 椰漿","packSize":400,"unit":"ml","packPrice":55,"defaultUnitCost":0.1375,"supplier":"carefour"},{"category":"Nước","name":"Ice cube","packSize":1000,"unit":"gr","packPrice":15,"defaultUnitCost":0.015,"supplier":"TBC"},{"category":"Nước","name":"Mung Bean Milk","packSize":1,"unit":"bag","packPrice":29,"defaultUnitCost":29,"supplier":""},{"category":"Nước","name":"Lotus seed","packSize":600,"unit":"gr","packPrice":280,"defaultUnitCost":0.4666666667,"supplier":""},{"category":"Nước","name":"Milk powder","packSize":600,"unit":"gr","packPrice":165,"defaultUnitCost":0.275,"supplier":"keke"},{"category":"Nước","name":"Matcha powder T世家","packSize":200,"unit":"gr","packPrice":158,"defaultUnitCost":0.79,"supplier":"keke"},{"category":"Nước","name":"Matcha powder 天仁","packSize":180,"unit":"gr","packPrice":179,"defaultUnitCost":0.9944444444,"supplier":"keke"},{"category":"NVL Khác","name":"Stick","packSize":60,"unit":"pcs","packPrice":10,"defaultUnitCost":0.1666666667,"supplier":""},{"category":"NVL Khác","name":"Banhmi Bag","packSize":100,"unit":"pcs","packPrice":50,"defaultUnitCost":0.5,"supplier":""},{"category":"NVL Khác","name":"Cup","packSize":50,"unit":"pcs","packPrice":128,"defaultUnitCost":2.56,"supplier":""},{"category":"NVL Khác","name":"Cap","packSize":100,"unit":"pcs","packPrice":100,"defaultUnitCost":1,"supplier":""},{"category":"NVL Khác","name":"CF cup 12oz","packSize":1000,"unit":"pcs","packPrice":1080,"defaultUnitCost":1.08,"supplier":"chợ"},{"category":"NVL Khác","name":"CF Cap","packSize":1000,"unit":"pcs","packPrice":1100,"defaultUnitCost":1.1,"supplier":""},{"category":"NVL Khác","name":"Straw","packSize":125,"unit":"pcs","packPrice":60,"defaultUnitCost":0.48,"supplier":""},{"category":"NVL Khác","name":"Tissue","packSize":50,"unit":"pcs","packPrice":6,"defaultUnitCost":0.12,"supplier":""},{"category":"NVL Khác","name":"Tea filter","packSize":1,"unit":"pcs","packPrice":30,"defaultUnitCost":30,"supplier":"keke"},{"category":"NVL Khác","name":"Nilon bag 3斤","packSize":40,"unit":"pcs","packPrice":25,"defaultUnitCost":0.625,"supplier":""},{"category":"NVL Khác","name":"Nilon glove","packSize":100,"unit":"pcs","packPrice":25,"defaultUnitCost":0.25,"supplier":""},{"category":"NVL Khác","name":"Toothpick","packSize":300,"unit":"pcs","packPrice":60,"defaultUnitCost":0.2,"supplier":""},{"category":"NVL Khác","name":"Rubber band","packSize":1,"unit":"bag","packPrice":40,"defaultUnitCost":40,"supplier":""},{"category":"NVL Khác","name":"Aluminum foil","packSize":1,"unit":"pack","packPrice":40,"defaultUnitCost":40,"supplier":"Chợ"},{"category":"NVL Khác","name":"Nilon bag 2斤","packSize":0,"unit":"","packPrice":30,"defaultUnitCost":0,"supplier":"可可"}],"semiFinished":{"ThitNuongUop":{"name":"Thit nuong uop","yieldQty":260,"yieldUnit":"ổ","yieldDefaultCost":4198.668889,"portionQty":1,"portionUnit":"ổ","portionDefaultCost":16.1487265,"ingredients":[{"name":"Ground pork","qty":40,"unit":"jin","defaultCost":3905},{"name":"Shallot","qty":200,"unit":"","defaultCost":39},{"name":"Garlic","qty":200,"unit":"","defaultCost":39},{"name":"Broth mix","qty":230,"unit":"gr","defaultCost":33.22222222},{"name":"MSG","qty":100,"unit":"gr","defaultCost":12},{"name":"Oyster sauce","qty":150,"unit":"ml","defaultCost":10},{"name":"Sugar","qty":580,"unit":"gr","defaultCost":20.88},{"name":"Pepper","qty":40,"unit":"gr","defaultCost":18.66666667},{"name":"Lemon grass","qty":48.01920768,"unit":"cây","defaultCost":50},{"name":"Xì dầu","qty":320,"unit":"gr","defaultCost":32},{"name":"Nước mắm","qty":150,"unit":"gr","defaultCost":13},{"name":"Sốt ướp thịt","qty":140,"unit":"gr","defaultCost":25.9}]},"Ga":{"name":"Ga","yieldQty":6548,"yieldUnit":"g","yieldDefaultCost":1956,"portionQty":70,"portionUnit":"g","portionDefaultCost":20.91020159,"ingredients":[{"name":"Gà","qty":20,"unit":"jin","defaultCost":1820},{"name":"Nấu nước","qty":600,"unit":"ml","defaultCost":1},{"name":"Sốt","qty":3,"unit":"chai","defaultCost":135}]},"DoChua":{"name":"Do chua","yieldQty":70,"yieldUnit":"ổ","yieldDefaultCost":331.10462,"portionQty":1,"portionUnit":"ổ","portionDefaultCost":4.730066,"ingredients":[{"name":"Carrot","qty":6,"unit":"pcs","defaultCost":90},{"name":"White radish","qty":4,"unit":"pcs","defaultCost":145},{"name":"Vinegar","qty":1000,"unit":"ml","defaultCost":60},{"name":"Sugar","qty":1000,"unit":"gr","defaultCost":36},{"name":"Salt","qty":10,"unit":"gr","defaultCost":0.1},{"name":"Water","qty":500,"unit":"ml","defaultCost":0.00462}]},"ThitXaXiu":{"name":"Thit xa xiu","yieldQty":9226,"yieldUnit":"g","yieldDefaultCost":2911.251111,"portionQty":70,"portionUnit":"g","portionDefaultCost":22.08839993,"ingredients":[{"name":"Thịt","qty":7.36,"unit":"jin","defaultCost":2864},{"name":"Ớt tương","qty":100,"unit":"gr","defaultCost":6.8},{"name":"Xì dầu","qty":100,"unit":"gr","defaultCost":10},{"name":"Tiêu","qty":15,"unit":"gr","defaultCost":7},{"name":"Dầu hào","qty":50,"unit":"gr","defaultCost":3.333333333},{"name":"Đường","qty":150,"unit":"gr","defaultCost":5.4},{"name":"Hạt nêm","qty":40,"unit":"gr","defaultCost":5.777777778},{"name":"Mì chính","qty":40,"unit":"gr","defaultCost":4.8},{"name":"Ngũ vị hương","qty":18,"unit":"gr","defaultCost":4.14}]},"NuocSot":{"name":"Nuoc sot","yieldQty":125,"yieldUnit":"ổ","yieldDefaultCost":284.5304762,"portionQty":1,"portionUnit":"ổ","portionDefaultCost":2.27624381,"ingredients":[{"name":"Ground pork","qty":250,"unit":"gr","defaultCost":40},{"name":"Shallot","qty":30,"unit":"gr","defaultCost":15},{"name":"Garlic","qty":20,"unit":"gr","defaultCost":15},{"name":"Ketchup","qty":150,"unit":"gr","defaultCost":20.35714286},{"name":"Sugar","qty":200,"unit":"gr","defaultCost":7.2},{"name":"Tomato","qty":30,"unit":"gr","defaultCost":100},{"name":"Pineapple","qty":100,"unit":"gr","defaultCost":50},{"name":"Chilli sauce","qty":150,"unit":"gr","defaultCost":10.2},{"name":"Oyster sauce","qty":75,"unit":"gr","defaultCost":5},{"name":"MSG","qty":25,"unit":"gr","defaultCost":3},{"name":"Mayonnaise","qty":100,"unit":"gr","defaultCost":13},{"name":"Fish sauce","qty":50,"unit":"gr","defaultCost":4.333333333},{"name":"Salt","qty":17,"unit":"gr","defaultCost":0.34}]},"DuongSyrup":{"name":"Duong syrup","yieldQty":1250,"yieldUnit":"ml","yieldDefaultCost":36,"portionQty":1,"portionUnit":"ml","portionDefaultCost":0.0288,"ingredients":[{"name":"Đường","qty":1000,"unit":"gr","defaultCost":36},{"name":"Nước sôi","qty":600,"unit":"ml","defaultCost":0}]}},"menuRecipes":[{"category":"Bánh mì lớn","name":"Bánh mì thịt nướng","sellingPrice":105,"defaultTotalCost":54.43281408,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"ổ","defaultCost":16.8},{"name":"Thịt nướng","qty":4,"unit":"lát","defaultCost":16.1487265},{"name":"Chả","qty":4,"unit":"lát","defaultCost":7.777777778},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":2.27624381},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":4.730066},{"name":"Rau dưa","qty":1,"unit":"ổ","defaultCost":5},{"name":"Bơ","qty":1,"unit":"ổ","defaultCost":0.2},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.5},{"name":"Ớt","qty":1,"unit":"ỏ","defaultCost":0.5},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì thịt nguội","sellingPrice":80,"defaultTotalCost":60.37248752,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"ổ","defaultCost":16.8},{"name":"Thịt xíu","qty":60,"unit":"gr","defaultCost":22.08839993},{"name":"Chả","qty":4,"unit":"lát","defaultCost":7.777777778},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":2.27624381},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":4.730066},{"name":"Rau dưa","qty":1,"unit":"ổ","defaultCost":5},{"name":"Bơ","qty":1,"unit":"ổ","defaultCost":0.2},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.5},{"name":"Ớt","qty":1,"unit":"ỏ","defaultCost":0.5},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì thịt gà","sellingPrice":100,"defaultTotalCost":58.39428918,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":16},{"name":"Gà","qty":2,"unit":"pcs","defaultCost":20.91020159},{"name":"Chả","qty":4,"unit":"pcs","defaultCost":7.777777778},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":2.27624381},{"name":"Đồ chua","qty":1,"unit":"gr","defaultCost":4.730066},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.5},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì phô mai","sellingPrice":115,"defaultTotalCost":58.36138551,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":16.8},{"name":"Thịt nướng","qty":5,"unit":"pcs","defaultCost":16.1487265},{"name":"Cheese","qty":1,"unit":"pcs","defaultCost":3.928571429},{"name":"Chả","qty":4,"unit":"pcs","defaultCost":7.777777778},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":2.27624381},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":4.730066},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.5},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì thập cẩm","sellingPrice":130,"defaultTotalCost":66.48408759,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":16},{"name":"Chả","qty":4,"unit":"pcs","defaultCost":7.777777778},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":2.27624381},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":4.730066},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.5},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì chả","sellingPrice":80,"defaultTotalCost":49.15075425,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":16},{"name":"Chả","qty":10,"unit":"pcs","defaultCost":19.44444444},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":2.27624381},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":4.730066},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.5},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"Bánh mì bé","name":"Bánh mì thịt nướng 72","sellingPrice":72,"defaultTotalCost":31.73546799,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":12},{"name":"Thịt nướng","qty":5,"unit":"pcs","defaultCost":8.074363248},{"name":"Chả","qty":2,"unit":"pcs","defaultCost":3.888888889},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":1.707182857},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":2.365033},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.3},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì thịt nguội 56","sellingPrice":56,"defaultTotalCost":35.20530471,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":12},{"name":"Chả","qty":2,"unit":"pcs","defaultCost":3.888888889},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":1.707182857},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":2.365033},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.3},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì thịt gà 68","sellingPrice":68,"defaultTotalCost":39.16110475,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":12},{"name":"Gà","qty":2,"unit":"pcs","defaultCost":15},{"name":"Chả","qty":2,"unit":"pcs","defaultCost":3.888888889},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":1.707182857},{"name":"Đồ chua","qty":1,"unit":"gr","defaultCost":2.365033},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.3},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì phô mai 78","sellingPrice":78,"defaultTotalCost":36.16403942,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":12},{"name":"Thịt nướng","qty":2,"unit":"pcs","defaultCost":8.074363248},{"name":"Cheese","qty":1,"unit":"pcs","defaultCost":3.928571429},{"name":"Chả","qty":2,"unit":"pcs","defaultCost":3.888888889},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":1.707182857},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":2.365033},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.3},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì thập cẩm 79","sellingPrice":79,"defaultTotalCost":44.10554919,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":12},{"name":"Chả","qty":3,"unit":"pcs","defaultCost":5.833333333},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":1.707182857},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":2.365033},{"name":"Rau dưa","qty":1,"unit":"","defaultCost":3},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.3},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"","name":"Bánh mì chả 56","sellingPrice":56,"defaultTotalCost":33.88332697,"ingredients":[{"name":"Bánh mì","qty":1,"unit":"pcs","defaultCost":12},{"name":"Chả","qty":7,"unit":"pcs","defaultCost":13.61111111},{"name":"Nước sốt","qty":1,"unit":"ổ","defaultCost":1.707182857},{"name":"Đồ chua","qty":1,"unit":"ổ","defaultCost":2.365033},{"name":"Pate","qty":8.5,"unit":"gr","defaultCost":0.3},{"name":"Bao bì","qty":1,"unit":"pcs","defaultCost":0.5}]},{"category":"Nước","name":"Cà phê 48","sellingPrice":48,"defaultTotalCost":12.74066667,"ingredients":[{"name":"cf","qty":1,"unit":"pcs","defaultCost":10.06066667},{"name":"ly nắp","qty":1,"unit":"ổ","defaultCost":2.18},{"name":"túi nl","qty":1,"unit":"ổ","defaultCost":0.5}]},{"category":"","name":"Hồng trà 37","sellingPrice":37,"defaultTotalCost":5.313333333,"ingredients":[{"name":"trà","qty":1,"unit":"pcs","defaultCost":2.633333333},{"name":"ly nắp","qty":1,"unit":"ổ","defaultCost":2.18},{"name":"túi nl","qty":1,"unit":"ổ","defaultCost":0.5}]},{"category":"","name":"Đậu nành 37","sellingPrice":37,"defaultTotalCost":10.68,"ingredients":[{"name":"đậu nành","qty":1,"unit":"pcs","defaultCost":8},{"name":"ly nắp","qty":1,"unit":"ổ","defaultCost":2.18},{"name":"túi nl","qty":1,"unit":"ổ","defaultCost":0.5}]},{"category":"","name":"Coca/Sprite 37","sellingPrice":37,"defaultTotalCost":13.18,"ingredients":[{"name":"Coca/Sprite","qty":1,"unit":"pcs","defaultCost":10.5},{"name":"ly nắp","qty":1,"unit":"ổ","defaultCost":2.18},{"name":"túi nl","qty":1,"unit":"ổ","defaultCost":0.5}]},{"category":"Combo","name":"Set1","sellingPrice":90,"defaultTotalCost":73.55248752,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":60.37248752},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set2","sellingPrice":90,"defaultTotalCost":62.33075425,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":49.15075425},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set3","sellingPrice":118,"defaultTotalCost":71.57428918,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":58.39428918},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set4","sellingPrice":128,"defaultTotalCost":67.61281408,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":54.43281408},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set5","sellingPrice":135,"defaultTotalCost":71.54138551,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":58.36138551},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set6","sellingPrice":142,"defaultTotalCost":79.66408759,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":66.48408759},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set7","sellingPrice":77,"defaultTotalCost":48.38530471,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":35.20530471},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set8","sellingPrice":88,"defaultTotalCost":52.34110475,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":39.16110475},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set9","sellingPrice":95,"defaultTotalCost":44.91546799,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":31.73546799},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set10","sellingPrice":99,"defaultTotalCost":49.34403942,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":36.16403942},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]},{"category":"","name":"Set11","sellingPrice":100,"defaultTotalCost":57.28554919,"ingredients":[{"name":"BM","qty":1,"unit":"pcs","defaultCost":44.10554919},{"name":"Nước","qty":1,"unit":"ly","defaultCost":13.18}]}]}
+
+;
+
     let cachedRecipes = {};
     let cachedMenu = {};
-    let activeIngredients = [];
-    let avgMaterialCosts = {}; // Material name -> Unit Cost ($/g, $/cái...)
+    let avgMaterialCosts = {}; // Material name -> Unit Cost ($/g, $/cÃ¡i...)
     
     // Passcode security variables
     let enteredPasscode = "";
@@ -1047,41 +1194,30 @@
     let isOwnerAuthorized = false;
 
     // Default Fallback values for Material Costs if import log is empty
-    const DEFAULT_MATERIAL_COSTS = {
-      "Bánh mì (ổ)": 10,
-      "Thịt xíu (g)": 0.25,
-      "Chả (lát)": 4,
-      "Thịt gà (g)": 0.3,
-      "Thịt nướng (lát)": 12,
-      "Phô mai (lát)": 5,
-      "Đồ chua (g)": 0.05,
-      "Bơ (g)": 0.1,
-      "Pate (g)": 0.15,
-      "Ly (cái)": 2,
-      "Nắp (cái)": 1,
-      "Giấy gói (cái)": 0.5,
-      "Túi nilong (cái)": 1
-    };
+    const DEFAULT_MATERIAL_COSTS = {};
+    cachedSheetConfig.rawMaterials.forEach(r => {
+      DEFAULT_MATERIAL_COSTS[r.name] = r.defaultUnitCost;
+    });
 
     // Mapping between Vietnamese recipe ingredients and Chinese menu items for Food Cost margin calculation
     const RECIPE_TO_MENU_MAPPING = {
-      "Bánh mì Lớn - Thịt xíu": { key: "燒肉", category: "large", label: "Bánh mì Lớn - Thịt xíu" },
-      "Bánh mì Lớn - Chả": { key: "火腿", category: "large", label: "Bánh mì Lớn - Chả" },
-      "Bánh mì Lớn - Thịt gà": { key: "雞肉", category: "large", label: "Bánh mì Lớn - Thịt gà" },
-      "Bánh mì Lớn - Thịt nướng": { key: "烤肉", category: "large", label: "Bánh mì Lớn - Thịt nướng" },
-      "Bánh mì Lớn - Thịt nướng phô mai": { key: "雙層烤肉", category: "large", label: "Bánh mì Lớn - Thịt nướng phô mai" },
-      "Bánh mì Lớn - Thập cẩm": { key: "綜合", category: "large", label: "Bánh mì Lớn - Thập cẩm" },
+      "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t xÃ­u": { key: "ç‡’è‚‰", category: "large", label: "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t xÃ­u" },
+      "BÃ¡nh mÃ¬ Lá»›n - Cháº£": { key: "ç«è…¿", category: "large", label: "BÃ¡nh mÃ¬ Lá»›n - Cháº£" },
+      "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t gÃ ": { key: "é›žè‚‰", category: "large", label: "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t gÃ " },
+      "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t nÆ°á»›ng": { key: "çƒ¤è‚‰", category: "large", label: "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t nÆ°á»›ng" },
+      "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t nÆ°á»›ng phÃ´ mai": { key: "é›™å±¤çƒ¤è‚‰", category: "large", label: "BÃ¡nh mÃ¬ Lá»›n - Thá»‹t nÆ°á»›ng phÃ´ mai" },
+      "BÃ¡nh mÃ¬ Lá»›n - Tháº­p cáº©m": { key: "ç¶œåˆ", category: "large", label: "BÃ¡nh mÃ¬ Lá»›n - Tháº­p cáº©m" },
       
-      "Bánh mì Nhỏ - Thịt xíu": { key: "燒肉", category: "small", label: "Bánh mì Nhỏ - Thịt xíu" },
-      "Bánh mì Nhỏ - Chả": { key: "火腿", category: "small", label: "Bánh mì Nhỏ - Chả" },
-      "Bánh mì Nhỏ - Thịt gà": { key: "雞肉", category: "small", label: "Bánh mì Nhỏ - Thịt gà" },
-      "Bánh mì Nhỏ - Thịt nướng": { key: "烤肉", category: "small", label: "Bánh mì Nhỏ - Thịt nướng" },
-      "Bánh mì Nhỏ - Thịt nướng phô mai": { key: "雙層烤肉", category: "small", label: "Bánh mì Nhỏ - Thịt nướng phô mai" },
-      "Bánh mì Nhỏ - Thập cẩm": { key: "綜合", category: "small", label: "Bánh mì Nhỏ - Thập cẩm" },
+      "BÃ¡nh mÃ¬ Nhá» - Thá»‹t xÃ­u": { key: "ç‡’è‚‰", category: "small", label: "BÃ¡nh mÃ¬ Nhá» - Thá»‹t xÃ­u" },
+      "BÃ¡nh mÃ¬ Nhá» - Cháº£": { key: "ç«è…¿", category: "small", label: "BÃ¡nh mÃ¬ Nhá» - Cháº£" },
+      "BÃ¡nh mÃ¬ Nhá» - Thá»‹t gÃ ": { key: "é›žè‚‰", category: "small", label: "BÃ¡nh mÃ¬ Nhá» - Thá»‹t gÃ " },
+      "BÃ¡nh mÃ¬ Nhá» - Thá»‹t nÆ°á»›ng": { key: "çƒ¤è‚‰", category: "small", label: "BÃ¡nh mÃ¬ Nhá» - Thá»‹t nÆ°á»›ng" },
+      "BÃ¡nh mÃ¬ Nhá» - Thá»‹t nÆ°á»›ng phÃ´ mai": { key: "é›™å±¤çƒ¤è‚‰", category: "small", label: "BÃ¡nh mÃ¬ Nhá» - Thá»‹t nÆ°á»›ng phÃ´ mai" },
+      "BÃ¡nh mÃ¬ Nhá» - Tháº­p cáº©m": { key: "ç¶œåˆ", category: "small", label: "BÃ¡nh mÃ¬ Nhá» - Tháº­p cáº©m" },
 
-      "Nước - Cà phê sữa": { key: "越南咖啡", category: "drinks", label: "Nước - Cà phê sữa" },
-      "Nước - Sữa đậu nành": { key: "豆漿", category: "drinks", label: "Nước - Sữa đậu nành" },
-      "Nước - Hồng trà": { key: "紅茶", category: "drinks", label: "Nước - Hồng trà" }
+      "NÆ°á»›c - CÃ  phÃª sá»¯a": { key: "è¶Šå—å’–å•¡", category: "drinks", label: "NÆ°á»›c - CÃ  phÃª sá»¯a" },
+      "NÆ°á»›c - Sá»¯a Ä‘áº­u nÃ nh": { key: "è±†æ¼¿", category: "drinks", label: "NÆ°á»›c - Sá»¯a Ä‘áº­u nÃ nh" },
+      "NÆ°á»›c - Há»“ng trÃ ": { key: "ç´…èŒ¶", category: "drinks", label: "NÆ°á»›c - Há»“ng trÃ " }
     };
 
     // -------------------------------------------------------------
@@ -1098,7 +1234,7 @@
       const toast = document.getElementById('toast');
       const text = document.getElementById('toast-text');
       text.innerText = msg;
-      toast.querySelector('.toast-icon').innerText = isSuccess ? '✓' : '⚠️';
+      toast.querySelector('.toast-icon').innerText = isSuccess ? 'âœ“' : 'âš ï¸';
       toast.querySelector('.toast-icon').style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
       toast.classList.add('show');
       setTimeout(() => toast.classList.remove('show'), 3500);
@@ -1114,6 +1250,7 @@
       if (role === 'admin') {
         if (isOwnerAuthorized) {
           document.getElementById('tab-admin').classList.add('active');
+          loadSyncUrl();
           loadReports();
         } else {
           document.getElementById('tab-admin-secure').classList.add('active');
@@ -1147,16 +1284,11 @@
         customInput.value = "";
       }
       
-      // Auto-populate unit choice
-      const unitSelect = document.getElementById('imp-unit');
-      if (val.includes("(g)")) {
-        unitSelect.value = "g";
-      } else if (val.includes("(ổ)")) {
-        unitSelect.value = "ổ";
-      } else if (val.includes("(lát)")) {
-        unitSelect.value = "lát";
-      } else if (val.includes("(cái)")) {
-        unitSelect.value = "cái";
+      // Auto-populate unit choice based on sheet configuration
+      const raw = cachedSheetConfig.rawMaterials.find(r => r.name === val);
+      if (raw) {
+        const unitSelect = document.getElementById('imp-unit');
+        unitSelect.value = raw.unit || "gr";
       }
       calculateUnitCost();
     }
@@ -1168,7 +1300,7 @@
       
       if (qty > 0 && cost >= 0) {
         const per = (cost / qty).toFixed(2);
-        preview.innerText = `Đơn giá ước tính: $${per} TWD / đơn vị`;
+        preview.innerText = `ÄÆ¡n giÃ¡ Æ°á»›c tÃ­nh: $${per} TWD / Ä‘Æ¡n vá»‹`;
         preview.style.display = "block";
       } else {
         preview.style.display = "none";
@@ -1193,75 +1325,155 @@
         if (resRecipes.ok) {
           const data = await resRecipes.json();
           cachedRecipes = data.recipes || {};
-          
-          // Extrapolate list of unique ingredients used in active recipes
-          extractActiveIngredients(cachedRecipes);
+          if (data.sheetConfig) {
+            cachedSheetConfig = data.sheetConfig;
+          }
         }
 
         if (resMenu && resMenu.ok) {
           cachedMenu = await resMenu.json();
         }
         
+        // Dynamic populate the purchase dropdown
+        const impSelect = document.getElementById('imp-name');
+        impSelect.innerHTML = '<option value="">-- Chá»n nguyÃªn liá»‡u thÃ´ --</option>';
+        cachedSheetConfig.rawMaterials.forEach(raw => {
+          const emoji = raw.category === 'BÃ¡nh mÃ¬' ? 'ðŸ¥–' : 
+                        raw.category === 'Thá»‹t' ? 'ðŸ¥©' : 
+                        raw.category === 'Rau cá»§' ? 'ðŸ¥•' : 
+                        raw.category === 'Gia vá»‹' ? 'ðŸ§‚' : 
+                        raw.category === 'NÆ°á»›c' ? 'ðŸ¥¤' : 'ðŸ“¦';
+          impSelect.innerHTML += `<option value="${raw.name}">${emoji} ${raw.name} (${raw.unit})</option>`;
+        });
+        // Add option for custom item
+        impSelect.innerHTML += '<option value="">âž• Nháº­p nguyÃªn liá»‡u thÃ´ khÃ¡c...</option>';
+
         renderKitchenIngredientCounters();
       } catch (e) {
         console.error("Initialization error:", e);
-        showToast("Lỗi khi tải cấu hình định lượng", false);
+        showToast("Lá»—i khi táº£i cáº¥u hÃ¬nh Ä‘á»‹nh lÆ°á»£ng", false);
       }
     }
 
-    function extractActiveIngredients(recipes) {
-      const set = new Set();
-      for (const dishName in recipes) {
-        for (const ingName in recipes[dishName]) {
-          set.add(ingName);
-        }
-      }
-      activeIngredients = Array.from(set);
-    }
-
-    // Render interactive cards in kitchen/staff mode
+    // Render interactive cards in kitchen/staff mode, categorized beautifully
     function renderKitchenIngredientCounters() {
       const container = document.getElementById('actual-ingredients-list');
       container.innerHTML = "";
 
-      if (activeIngredients.length === 0) {
-        container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted);">Chưa có nguyên liệu định lượng nào được cấu hình.</div>`;
-        return;
-      }
-
-      activeIngredients.forEach((ing, index) => {
-        const unit = ing.includes("(g)") ? "g" : (ing.includes("(lát)") ? "lát" : (ing.includes("(cái)") ? "cái" : "ổ"));
-        const cleanName = ing.replace(/\s*\(.*?\)/, ""); // Strip (g), (ổ)... for visual cleanliness
-
-        const card = document.createElement('div');
-        card.className = "ingredient-card";
-        
-        card.innerHTML = `
-          <div class="ingredient-info">
-            <div class="ingredient-title">${cleanName}</div>
-            <div class="ingredient-unit">Đơn vị đếm: <strong>${unit}</strong></div>
-            <div class="quick-helper">
-              <span class="helper-pill" onclick="adjustCounter(${index}, 10)">+10</span>
-              <span class="helper-pill" onclick="adjustCounter(${index}, 50)">+50</span>
-              <span class="helper-pill" onclick="adjustCounter(${index}, 100)">+100</span>
-              <span class="helper-pill" onclick="adjustCounter(${index}, 500)">+500</span>
-            </div>
-          </div>
-          <div class="ingredient-counter">
-            <button class="counter-btn" onclick="adjustCounter(${index}, -1)">-</button>
-            <input type="number" id="act-input-${index}" class="counter-value" value="0" min="0" data-ing="${ing}" data-unit="${unit}">
-            <button class="counter-btn" onclick="adjustCounter(${index}, 1)">+</button>
-          </div>
-        `;
-        container.appendChild(card);
+      const categories = {};
+      cachedSheetConfig.rawMaterials.forEach(raw => {
+        if (!categories[raw.category]) categories[raw.category] = [];
+        categories[raw.category].push(raw);
       });
+      
+      // Also add Semi-Finished as a category
+      categories['BÃ¡n thÃ nh pháº©m (SÆ¡ cháº¿)'] = Object.values(cachedSheetConfig.semiFinished);
+
+      for (const catName in categories) {
+        const items = categories[catName];
+        if (items.length === 0) continue;
+
+        const catHeader = document.createElement('h3');
+        catHeader.style.fontSize = '14px';
+        catHeader.style.fontWeight = '800';
+        catHeader.style.marginTop = '24px';
+        catHeader.style.marginBottom = '12px';
+        catHeader.style.color = 'var(--text-muted)';
+        catHeader.style.borderBottom = '1.5px dashed var(--border)';
+        catHeader.style.paddingBottom = '6px';
+        catHeader.style.textTransform = 'uppercase';
+        catHeader.style.letterSpacing = '0.5px';
+        catHeader.innerText = catName;
+        container.appendChild(catHeader);
+
+        items.forEach((item) => {
+          const isSemi = !item.category;
+          const name = item.name;
+          const unit = isSemi ? item.yieldUnit : item.unit;
+          if (!unit) return; // skip items without unit
+
+          const card = document.createElement('div');
+          card.className = "ingredient-card";
+          
+          const cleanName = name;
+          // Clean id without special chars or spaces for HTML inputs
+          const safeId = encodeURIComponent(name).replace(/%/g, "_");
+
+          card.innerHTML = `
+            <div class="ingredient-info">
+              <div class="ingredient-title">
+                ${cleanName} 
+                ${isSemi ? '<span style="font-size:10px; color:var(--accent); font-weight:800; background:var(--accent-light); padding:3px 8px; border-radius:99px; margin-left:6px; text-transform:uppercase; letter-spacing:0.5px;">SÆ¡ cháº¿</span>' : ''}
+              </div>
+              <div class="ingredient-unit">ÄÆ¡n vá»‹ Ä‘áº¿m: <strong>${unit}</strong></div>
+              <div class="quick-helper">
+                <span class="helper-pill" onclick="adjustCounter('${safeId}', 10)">+10</span>
+                <span class="helper-pill" onclick="adjustCounter('${safeId}', 50)">+50</span>
+                <span class="helper-pill" onclick="adjustCounter('${safeId}', 100)">+100</span>
+                <span class="helper-pill" onclick="adjustCounter('${safeId}', 500)">+500</span>
+              </div>
+            </div>
+            <div class="ingredient-counter">
+              <button class="counter-btn" onclick="adjustCounter('${safeId}', -1)">-</button>
+              <input type="number" id="act-input-${safeId}" class="counter-value" value="0" min="0" data-ing="${name}" data-unit="${unit}">
+              <button class="counter-btn" onclick="adjustCounter('${safeId}', 1)">+</button>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      }
     }
 
-    function adjustCounter(index, val) {
-      const input = document.getElementById(`act-input-${index}`);
+    function adjustCounter(safeId, val) {
+      const input = document.getElementById(`act-input-${safeId}`);
       if (input) {
         let current = parseFloat(input.value) || 0;
         input.value = Math.max(0, current + val);
+      }
+    }
+
+    // ðŸ³ GHI NHáº¬N CHáº¾ BIáº¾N BÃN THÃ€NH PHáº¨M IN KITCHEN
+    function onProductionNameSelect(val) {
+      const hint = document.getElementById('production-default-hint');
+      const unitInput = document.getElementById('prod-unit');
+      
+      if (val === "") {
+        hint.style.display = "none";
+        unitInput.value = "";
+        return;
+      }
+      
+      const semi = cachedSheetConfig.semiFinished[val];
+      if (semi) {
+        unitInput.value = semi.yieldUnit || "á»•";
+        hint.innerText = `Sáº£n lÆ°á»£ng máº·c Ä‘á»‹nh: ${semi.yieldQty} ${semi.yieldUnit}`;
+        hint.style.display = "block";
+        document.getElementById('prod-yield').value = semi.yieldQty;
+      }
+    }
+
+    async function submitProduction(btn) {
+      const name = document.getElementById('prod-name').value;
+      const yieldQty = parseFloat(document.getElementById('prod-yield').value);
+      
+      if (name === "" || isNaN(yieldQty) || yieldQty <= 0) {
+        showToast("Vui lÃ²ng nháº­p sáº£n lÆ°á»£ng cháº¿ biáº¿n há»£p lá»‡!", false);
+        return;
+      }
+      
+      const oldText = btn.innerText;
+      btn.innerText = "Äang lÆ°u..."; btn.disabled = true;
+      
+      const res = await apiPost('/api/production', { name, yield: yieldQty });
+      
+      btn.innerText = oldText; btn.disabled = false;
+      
+      if (res) {
+        showToast("Ghi nháº­n máº» cháº¿ biáº¿n bÃ¡n thÃ nh pháº©m thÃ nh cÃ´ng!");
+        document.getElementById('prod-name').value = "";
+        document.getElementById('prod-yield').value = "";
+        document.getElementById('prod-unit').value = "";
+        document.getElementById('production-default-hint').style.display = "none";
       }
     }
 
@@ -1288,7 +1500,7 @@
     function drawPasscodeDots() {
       const preview = document.getElementById('masked-passcode-preview');
       if (preview) {
-        preview.innerText = "● ".repeat(enteredPasscode.length).trim();
+        preview.innerText = "â— ".repeat(enteredPasscode.length).trim();
       }
     }
 
@@ -1299,7 +1511,7 @@
 
     async function verifyPasscode() {
       if (!enteredPasscode) {
-        showToast("Vui lòng nhập mật khẩu!", false);
+        showToast("Vui lÃ²ng nháº­p máº­t kháº©u!", false);
         return;
       }
 
@@ -1310,17 +1522,18 @@
         const res = await apiPost('/api/auth', { password: enteredPasscode });
         if (res && res.success) {
           isOwnerAuthorized = true;
-          adminPassword = enteredPasscode; // Cất mật khẩu để dùng cho các API sau
-          showToast("Xác thực quản trị thành công!");
+          adminPassword = enteredPasscode; // Cáº¥t máº­t kháº©u Ä‘á»ƒ dÃ¹ng cho cÃ¡c API sau
+          showToast("XÃ¡c thá»±c quáº£n trá»‹ thÃ nh cÃ´ng!");
           document.getElementById('tab-admin-secure').classList.remove('active');
           document.getElementById('tab-admin').classList.add('active');
+          loadSyncUrl();
           loadReports();
         } else {
-          showToast("Mật khẩu Admin không chính xác! Vui lòng thử lại.", false);
+          showToast("Máº­t kháº©u Admin khÃ´ng chÃ­nh xÃ¡c! Vui lÃ²ng thá»­ láº¡i.", false);
           clearPasscode();
         }
       } catch (e) {
-        showToast("Lỗi xác thực hệ thống!", false);
+        showToast("Lá»—i xÃ¡c thá»±c há»‡ thá»‘ng!", false);
         clearPasscode();
       } finally {
         dotsWrap.style.opacity = 1;
@@ -1339,7 +1552,7 @@
         });
         const result = await res.json();
         if (res.ok) return result;
-        throw new Error(result.error || "Lỗi giao tiếp máy chủ");
+        throw new Error(result.error || "Lá»—i giao tiáº¿p mÃ¡y chá»§");
       } catch (e) {
         showToast(e.message, false);
         return null;
@@ -1358,19 +1571,19 @@
       }
 
       if (!name || isNaN(qty) || qty <= 0 || isNaN(cost) || cost < 0) {
-        showToast("Vui lòng điền đầy đủ và chính xác các thông tin!", false);
+        showToast("Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ vÃ  chÃ­nh xÃ¡c cÃ¡c thÃ´ng tin!", false);
         return;
       }
 
       const oldText = btn.innerText;
-      btn.innerText = "Đang xử lý..."; btn.disabled = true;
+      btn.innerText = "Äang xá»­ lÃ½..."; btn.disabled = true;
 
       const res = await apiPost('/api/import', { name, qty, unit, cost });
       
       btn.innerText = oldText; btn.disabled = false;
 
       if (res) {
-        showToast("Đã lưu nhập kho thành công!");
+        showToast("ÄÃ£ lÆ°u nháº­p kho thÃ nh cÃ´ng!");
         document.getElementById('imp-name').value = '';
         document.getElementById('imp-name-custom').value = '';
         document.getElementById('imp-name-custom').style.display = 'none';
@@ -1378,7 +1591,6 @@
         document.getElementById('imp-cost').value = '';
         document.getElementById('unit-cost-preview').style.display = 'none';
         
-        // Refresh active list if custom item was introduced
         await initializeSystem();
       }
     }
@@ -1396,19 +1608,19 @@
       });
 
       if (items.length === 0) {
-        showToast("Không tìm thấy nguyên vật liệu nào để lưu!", false);
+        showToast("KhÃ´ng tÃ¬m tháº¥y nguyÃªn váº­t liá»‡u nÃ o Ä‘á»ƒ lÆ°u!", false);
         return;
       }
 
       const oldText = btn.innerText;
-      btn.innerText = "Đang truyền tải..."; btn.disabled = true;
+      btn.innerText = "Äang truyá»n táº£i..."; btn.disabled = true;
 
       const res = await apiPost('/api/actual', { items });
       
       btn.innerText = oldText; btn.disabled = false;
 
       if (res) {
-        showToast("Đã ghi nhận tồn kho thực tế cuối ngày!");
+        showToast("ÄÃ£ ghi nháº­n tá»“n kho thá»±c táº¿ cuá»‘i ngÃ y!");
       }
     }
 
@@ -1416,21 +1628,25 @@
     // OWNER DATA LOADING & CALCULATIONS (BI / ANALYTICS)
     // -------------------------------------------------------------
     async function loadReports() {
-      const passcode = adminPassword; // Sử dụng mật khẩu động đã xác thực thành công
+      const passcode = adminPassword;
       const res = await apiPost('/api/reports', { password: passcode });
 
       if (res) {
-        // Calculate average material unit cost based on imports to compute live food cost per dish
-        avgMaterialCosts = calculateAverageMaterialCosts(res.logs.imports);
+        avgMaterialCosts = res.materialUnitCosts || {};
         
-        // Render statistics metric counters
         document.getElementById('report-cost').innerText = `$${res.totalCost.toLocaleString()} TWD`;
 
-        // Render profit margin BI analysis table
-        const overallAvgMargin = renderProfitMarginAnalysisTable();
+        // 1. Render Tier 1 Raw Materials
+        renderTier1Table(res.materialUnitCosts, res.logs.imports);
+        
+        // 2. Render Tier 2 Semi-Finished
+        renderTier2Table(res.semiFinishedCosts);
+        
+        // 3. Render Tier 3 Menu Items
+        const overallAvgMargin = renderTier3Table(res.menuItemCosts);
         document.getElementById('report-avg-margin').innerText = `${overallAvgMargin}%`;
 
-        // Render discrepancy table (Hao hụt)
+        // Render discrepancy table (Hao há»¥t)
         renderDiscrepancyTable(res.discrepancies);
 
         // Render low stock warning
@@ -1438,89 +1654,127 @@
       }
     }
 
-    // Compute average cost per unit (e.g. cost per gram) of materials from import histories
-    function calculateAverageMaterialCosts(imports) {
-      const totals = {}; // materialName -> { totalCost, totalQty }
+    // Render Tier 1 table dynamically with active badges
+    function renderTier1Table(unitCosts, imports) {
+      const tbody = document.getElementById('tier1-table-body');
+      tbody.innerHTML = "";
       
-      // Seed with default unit costs
-      const result = { ...DEFAULT_MATERIAL_COSTS };
-
+      const latestImports = {};
       if (Array.isArray(imports)) {
-        imports.forEach(imp => {
-          if (!totals[imp.name]) totals[imp.name] = { cost: 0, qty: 0 };
-          totals[imp.name].cost += imp.cost || 0;
-          totals[imp.name].qty += imp.qty || 0;
-        });
-
-        // Compute actual division
-        for (const name in totals) {
-          if (totals[name].qty > 0) {
-            result[name] = totals[name].cost / totals[name].qty;
-          }
-        }
+        imports.forEach(imp => latestImports[imp.name] = imp);
       }
-      return result;
+
+      cachedSheetConfig.rawMaterials.forEach(raw => {
+        const isImported = !!latestImports[raw.name];
+        const actualCost = unitCosts[raw.name] || raw.defaultUnitCost;
+        
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${raw.name}</strong> <span style="font-size:12px; color:var(--text-muted);">(${raw.unit})</span></td>
+          <td><span style="font-size:12px; font-weight:700; background:#F3F4F6; padding:4px 8px; border-radius:6px;">${raw.category}</span></td>
+          <td style="font-weight:600; color:var(--text-muted);">$${raw.defaultUnitCost.toFixed(4)}</td>
+          <td style="font-weight:800; color:${isImported ? 'var(--primary)' : 'var(--text)'};">$${actualCost.toFixed(4)}</td>
+          <td>
+            <span style="font-size:11px; font-weight:800; padding:4px 8px; border-radius:6px; background:${isImported ? 'var(--primary-light)' : '#F3F4F6'}; color:${isImported ? 'var(--primary)' : 'var(--text-muted)'}; text-transform:uppercase;">
+              ${isImported ? 'HÃ³a Ä‘Æ¡n má»›i' : 'Sheet máº·c Ä‘á»‹nh'}
+            </span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
-    // Build the business intelligence table linking recipes cost to retail menu pricing
-    function renderProfitMarginAnalysisTable() {
-      const tbody = document.getElementById('profit-margin-table-body');
+    // Render Tier 2 table dynamically with comparison status
+    function renderTier2Table(semiCosts) {
+      const tbody = document.getElementById('tier2-table-body');
       tbody.innerHTML = "";
+
+      for (const key in semiCosts) {
+        const item = semiCosts[key];
+        const defaultPortion = item.defaultPortionCost || 0;
+        const diff = item.portionCost - defaultPortion;
+        const diffPct = defaultPortion > 0 ? Math.round((diff / defaultPortion) * 100) : 0;
+        
+        let comparisonHtml = '<span style="font-size:12px; font-weight:700; color:var(--text-muted); background:#F3F4F6; padding:4px 8px; border-radius:6px;">CÃ¢n báº±ng</span>';
+        if (diff > 0.01) {
+          comparisonHtml = `<span style="font-size:11px; color:var(--danger); font-weight:800; background:var(--danger-light); padding:4px 8px; border-radius:6px; text-transform:uppercase;">TÄƒng +${diffPct}%</span>`;
+        } else if (diff < -0.01) {
+          comparisonHtml = `<span style="font-size:11px; color:var(--success); font-weight:800; background:var(--success-light); padding:4px 8px; border-radius:6px; text-transform:uppercase;">Giáº£m ${diffPct}%</span>`;
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${item.name}</strong></td>
+          <td style="font-weight:600;">$${item.batchCost.toFixed(1)} TWD</td>
+          <td style="font-weight:700; color:var(--accent);">${item.yieldQty} suáº¥t</td>
+          <td style="font-weight:800; color:var(--primary);">$${item.portionCost.toFixed(2)} TWD</td>
+          <td>${comparisonHtml}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    // Render Tier 3 table with cascading food cost calculations
+    function renderTier3Table(menuCosts) {
+      const tbody = document.getElementById('tier3-table-body');
+      tbody.innerHTML = "";
+      
+      const oldTable = document.getElementById('profit-margin-table-body');
+      if (oldTable) oldTable.innerHTML = "";
 
       let totalMarginSum = 0;
       let itemsCount = 0;
 
-      for (const recipeName in cachedRecipes) {
-        const mapping = RECIPE_TO_MENU_MAPPING[recipeName];
-        if (!mapping) continue;
-
-        // Fetch retail price from loaded order menu
-        const menuCategory = cachedMenu[mapping.category] || {};
-        const retailPrice = menuCategory[mapping.key] || 0;
-
-        // Compute food cost based on recipes and average material cost
-        const foodCost = calculateDishFoodCost(cachedRecipes[recipeName]);
-
-        const profit = retailPrice - foodCost;
-        const marginPct = retailPrice > 0 ? Math.round((profit / retailPrice) * 100) : 0;
-
-        totalMarginSum += marginPct;
+      menuCosts.forEach(item => {
+        totalMarginSum += item.marginPct;
         itemsCount++;
 
         let marginClass = 'bad';
-        if (marginPct >= 65) {
+        if (item.marginPct >= 65) {
           marginClass = 'excellent';
-        } else if (marginPct >= 50) {
+        } else if (item.marginPct >= 50) {
           marginClass = 'warning';
         }
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td><strong>${mapping.label}</strong> <span style="font-size:12px; color:var(--text-muted); block">${mapping.key} (${mapping.category === 'large' ? 'Đại' : (mapping.category === 'small' ? 'Nhỏ' : 'Nước')})</span></td>
-          <td style="font-weight:700;">$${retailPrice} TWD</td>
-          <td style="font-weight:700; color:var(--primary);">$${foodCost.toFixed(2)} TWD</td>
-          <td><span class="badge-margin ${marginClass}">${marginPct}%</span></td>
+          <td><strong>${item.name}</strong> <span style="font-size:12px; color:var(--text-muted); block; margin-top:2px;">${item.category}</span></td>
+          <td style="font-weight:700;">$${item.sellingPrice} TWD</td>
+          <td style="font-weight:700; color:var(--primary);">$${item.totalCost.toFixed(2)} TWD</td>
+          <td style="font-weight:700; color:var(--text-muted);">${Math.round((item.totalCost / (item.sellingPrice || 1)) * 100)}%</td>
+          <td><span class="badge-margin ${marginClass}">${item.marginPct}%</span></td>
         `;
         tbody.appendChild(tr);
-      }
+        
+        if (oldTable) {
+          const cloneTr = tr.cloneNode(true);
+          oldTable.appendChild(cloneTr);
+        }
+      });
 
       if (itemsCount === 0) {
-        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Không tìm thấy thông tin phù hợp trên menu.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">KhÃ´ng tÃ¬m tháº¥y thÃ´ng tin phÃ¹ há»£p trÃªn thá»±c Ä‘Æ¡n.</td></tr>`;
         return 0;
       }
 
       return Math.round(totalMarginSum / itemsCount);
     }
 
-    // Helper to calculate total food cost of a recipe object
-    function calculateDishFoodCost(recipeObject) {
-      let costSum = 0;
-      for (const ingredientName in recipeObject) {
-        const qtyRequired = recipeObject[ingredientName] || 0;
-        const unitCost = avgMaterialCosts[ingredientName] || DEFAULT_MATERIAL_COSTS[ingredientName] || 0;
-        costSum += qtyRequired * unitCost;
+    // Custom Accordion Toggle Script for Tier 1, 2, 3 COGS
+    function toggleAccordionCustom(id) {
+      const body = document.getElementById(`${id}-body`);
+      const arrow = document.getElementById(`${id}-arrow`);
+      const isOpening = body.style.maxHeight === '0px' || body.style.maxHeight === '';
+      
+      if (isOpening) {
+        body.style.maxHeight = '2000px';
+        body.style.padding = '20px';
+        arrow.innerText = 'â–²';
+      } else {
+        body.style.maxHeight = '0px';
+        body.style.padding = '0';
+        arrow.innerText = 'â–¼';
       }
-      return costSum;
     }
 
     // Render discrepancy table with visual cash loss conversion
@@ -1529,7 +1783,7 @@
       tbody.innerHTML = "";
 
       if (!Array.isArray(discrepancies) || discrepancies.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Chưa có dữ liệu hao hụt.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">ChÆ°a cÃ³ dá»¯ liá»‡u hao há»¥t.</td></tr>`;
         return;
       }
 
@@ -1541,28 +1795,25 @@
         if (typeof d.actual === 'number') {
           diffClass = d.diff < 0 ? 'diff-negative' : (d.diff > 0 ? 'diff-positive' : '');
           
-          // If discrepancy is negative (loss/wasted material), calculate monetary value of loss
           if (d.diff < 0) {
-            const unitCost = avgMaterialCosts[d.name] || DEFAULT_MATERIAL_COSTS[d.name] || 0;
-            cashLossVal = Math.round(Math.abs(d.diff) * unitCost);
-            cashLossText = `Lãng phí -$${cashLossVal.toLocaleString()} TWD`;
+            cashLossVal = Math.round(Math.abs(d.diff) * d.unitCost);
+            cashLossText = `LÃ£ng phÃ­ -$${cashLossVal.toLocaleString()} TWD`;
           } else if (d.diff > 0) {
-            const unitCost = avgMaterialCosts[d.name] || DEFAULT_MATERIAL_COSTS[d.name] || 0;
-            cashLossVal = Math.round(d.diff * unitCost);
-            cashLossText = `Tiết kiệm +$${cashLossVal.toLocaleString()} TWD`;
+            cashLossVal = Math.round(d.diff * d.unitCost);
+            cashLossText = `Tiáº¿t kiá»‡m +$${cashLossVal.toLocaleString()} TWD`;
           } else {
-            cashLossText = 'Cân đối $0';
+            cashLossText = 'CÃ¢n Ä‘á»‘i $0';
           }
         }
 
         const cleanName = d.name.replace(/\s*\(.*?\)/, "");
-        const unit = d.name.includes("(g)") ? "g" : (d.name.includes("(lát)") ? "lát" : (d.name.includes("(cái)") ? "cái" : "ổ"));
+        const unit = d.name.includes("(g)") ? "g" : (d.name.includes("(lÃ¡t)") ? "lÃ¡t" : (d.name.includes("(cÃ¡i)") ? "cÃ¡i" : "á»•"));
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td><strong>${cleanName}</strong> <span style="font-size:12px; color:var(--text-muted);">(${unit})</span></td>
           <td style="font-weight:600;">${d.theoretical.toLocaleString()}</td>
-          <td style="font-weight:600;">${typeof d.actual === 'number' ? d.actual.toLocaleString() : 'Chưa kiểm'}</td>
+          <td style="font-weight:600;">${typeof d.actual === 'number' ? d.actual.toLocaleString() : 'ChÆ°a kiá»ƒm'}</td>
           <td>
             <span class="${diffClass}">
               ${typeof d.actual === 'number' ? (d.diff > 0 ? `+${d.diff.toLocaleString()}` : d.diff.toLocaleString()) : '-'}
@@ -1582,15 +1833,14 @@
       const lowItems = [];
       discrepancies.forEach(d => {
         if (typeof d.actual === 'number') {
-          // Low stock threshold: e.g. Bánh mì < 30 ổ, Thịt xíu < 500g, Chả < 20 lát, v.v.
           let limit = 0;
-          if (d.name.includes("Bánh mì")) limit = 30;
-          else if (d.name.includes("Thịt")) limit = 600;
-          else if (d.name.includes("Chả")) limit = 50;
+          if (d.name.includes("BÃ¡nh mÃ¬")) limit = 30;
+          else if (d.name.includes("Thá»‹t")) limit = 600;
+          else if (d.name.includes("Cháº£")) limit = 50;
           else if (d.name.includes("Ly")) limit = 40;
 
           if (d.actual < limit) {
-            lowItems.push(`${d.name.replace(/\s*\(.*?\)/, "")} (Còn ${d.actual})`);
+            lowItems.push(`${d.name.replace(/\s*\(.*?\)/, "")} (CÃ²n ${d.actual})`);
           }
         }
       });
@@ -1598,9 +1848,9 @@
       if (lowItems.length > 0) {
         wrap.innerHTML = `
           <div class="alert-banner">
-            <span style="font-size: 20px;">⚠️</span>
+            <span style="font-size: 20px;">âš ï¸</span>
             <div>
-              <strong>Cảnh báo sắp hết nguyên liệu:</strong> ${lowItems.join(', ')}. Hãy chuẩn bị kế hoạch nhập thêm hàng sớm!
+              <strong>Cáº£nh bÃ¡o sáº¯p háº¿t nguyÃªn liá»‡u:</strong> ${lowItems.join(', ')}. HÃ£y chuáº©n bá»‹ káº¿ hoáº¡ch nháº­p thÃªm hÃ ng sá»›m!
             </div>
           </div>
         `;
@@ -1621,51 +1871,64 @@
 
       for (const recipeName in cachedRecipes) {
         const mapping = RECIPE_TO_MENU_MAPPING[recipeName] || { key: recipeName, category: "misc", label: recipeName };
-        const menuCategory = cachedMenu[mapping.category] || {};
-        const retailPrice = menuCategory[mapping.key] || 0;
         
+        // Fallback pricing if menu is not synced or custom menu recipes are used
+        const menuCategory = cachedMenu[mapping.category] || {};
+        let retailPrice = menuCategory[mapping.key] || 0;
+        
+        // Find default price in sheet config menu recipes
+        if (retailPrice === 0) {
+          const sheetMenu = cachedSheetConfig.menuRecipes.find(m => m.name === recipeName || m.name === mapping.label);
+          if (sheetMenu) retailPrice = sheetMenu.sellingPrice;
+        }
+
         const card = document.createElement('div');
         card.className = "accordion-item";
         card.id = `recipe-accordion-${count}`;
         
-        const initialFoodCost = calculateDishFoodCost(cachedRecipes[recipeName]);
+        let initialFoodCost = 0;
+        for (const ingName in cachedRecipes[recipeName]) {
+          const qty = cachedRecipes[recipeName][ingName];
+          const unitCost = avgMaterialCosts[ingName] || DEFAULT_MATERIAL_COSTS[ingName] || 0;
+          initialFoodCost += qty * unitCost;
+        }
+        
         const initialMargin = retailPrice > 0 ? Math.round(((retailPrice - initialFoodCost) / retailPrice) * 100) : 0;
 
         let headerHtml = `
           <div class="accordion-header" onclick="toggleAccordion(${count})">
             <div class="accordion-header-left">
-              <span style="font-size:18px;">🥪</span>
+              <span style="font-size:18px;">ðŸ¥ª</span>
               <div>
                 <div style="font-size:16px;">${mapping.label}</div>
                 <div class="accordion-title-trans">${mapping.key} ($${retailPrice} TWD)</div>
               </div>
             </div>
             <div style="display:flex; gap:10px; align-items:center;">
-              <span class="accordion-cost-badge" id="rec-cost-badge-${count}">Vốn: $${initialFoodCost.toFixed(1)}</span>
+              <span class="accordion-cost-badge" id="rec-cost-badge-${count}">Vá»‘n: $${initialFoodCost.toFixed(1)}</span>
               <span class="badge-margin ${initialMargin >= 65 ? 'excellent' : (initialMargin >= 50 ? 'warning' : 'bad')}" id="rec-margin-badge-${count}">${initialMargin}% Marg.</span>
-              <span id="accordion-arrow-${count}" style="font-size: 14px; transition: var(--transition);">▼</span>
+              <span id="accordion-arrow-${count}" style="font-size: 14px; transition: var(--transition);">â–¼</span>
             </div>
           </div>
         `;
 
         let bodyHtml = `<div class="accordion-body">`;
         
-        // Loop ingredients sliders
         for (const ingName in cachedRecipes[recipeName]) {
           const qty = cachedRecipes[recipeName][ingName];
           const cleanIng = ingName.replace(/\s*\(.*?\)/, "");
-          const unit = ingName.includes("(g)") ? "g" : (ingName.includes("(lát)") ? "lát" : (ingName.includes("(cái)") ? "cái" : "ổ"));
+          const unit = ingName.includes("(g)") ? "g" : (ingName.includes("(lÃ¡t)") ? "lÃ¡t" : (ingName.includes("(cÃ¡i)") ? "cÃ¡i" : "á»•"));
           
           let maxRange = 10;
           if (unit === 'g') maxRange = 200;
-          else if (unit === 'lát' || unit === 'cái') maxRange = 15;
+          else if (unit === 'lÃ¡t' || unit === 'cÃ¡i') maxRange = 15;
 
           const sliderId = `slide-${count}-${encodeURIComponent(ingName)}`;
           bodyHtml += `
             <div class="slider-row">
               <div class="slider-info">
                 <span>${cleanIng} (${unit})</span>
-                <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Giá nhập ước tính: $${(avgMaterialCosts[ingName] || DEFAULT_MATERIAL_COSTS[ingName] || 0).toFixed(2)}/u</span>
+                <span style="font-size:12px; color:var(--text-muted); font-weight:500;">GiÃ¡ nháº­p Æ°á»›c tÃ­nh: $${(avgMaterialCosts[ingName] || DEFAULT_MATERIAL_COSTS[ingName] || 0).toFixed(2)}/u</span>
               </div>
               <div class="slider-input-group">
                 <input type="range" id="${sliderId}" min="0" max="${maxRange}" step="${unit === 'g' ? '5' : '1'}" value="${qty}" 
@@ -1677,10 +1940,9 @@
           `;
         }
 
-        // Add live cost meter bar
         bodyHtml += `
           <div style="margin-top: 14px; font-size:13px; font-weight:700; color:var(--text-muted);">
-            TỶ LỆ GIÁ VỐN/GIÁ BÁN LẺ (FOOD COST RATIO): <span id="ratio-text-${count}">${Math.round((initialFoodCost / (retailPrice || 1)) * 100)}%</span>
+            Tá»¶ Lá»† GIÃ Vá»N/GIÃ BÃN Láºº (FOOD COST RATIO): <span id="ratio-text-${count}">${Math.round((initialFoodCost / (retailPrice || 1)) * 100)}%</span>
           </div>
           <div class="cost-progress-wrap">
             <div class="cost-progress-bar" id="ratio-progress-${count}" style="width: ${Math.min(100, Math.round((initialFoodCost / (retailPrice || 1)) * 100))}%"></div>
@@ -1698,50 +1960,48 @@
       const arrow = document.getElementById(`accordion-arrow-${idx}`);
       const isOpening = !items[idx].classList.contains('active');
 
-      // Close all other accordions
       items.forEach((item, i) => {
         item.classList.remove('active');
         const a = document.getElementById(`accordion-arrow-${i}`);
-        if (a) a.innerText = '▼';
+        if (a) a.innerText = 'â–¼';
       });
 
       if (isOpening) {
         items[idx].classList.add('active');
-        arrow.innerText = '▲';
+        arrow.innerText = 'â–²';
       }
     }
 
-    // Handles live reactive calculation as Owner slides the recipe controls
     function onRecipeSliderInput(dishName, ingName, value, accordionIndex, retailPrice) {
-      const unit = ingName.includes("(g)") ? "g" : (ingName.includes("(lát)") ? "lát" : (ingName.includes("(cái)") ? "cái" : "ổ"));
+      const unit = ingName.includes("(g)") ? "g" : (ingName.includes("(lÃ¡t)") ? "lÃ¡t" : (ingName.includes("(cÃ¡i)") ? "cÃ¡i" : "á»•"));
       const valBox = document.getElementById(`val-box-${accordionIndex}-${encodeURIComponent(ingName)}`);
       valBox.innerText = `${value} ${unit}`;
 
-      // Calculate new live cost contribution of this dish accordion
       const recipeSnapshot = { ...cachedRecipes[dishName] };
       recipeSnapshot[ingName] = parseFloat(value) || 0;
 
-      const liveCost = calculateDishFoodCost(recipeSnapshot);
+      let liveCost = 0;
+      for (const name in recipeSnapshot) {
+        const qty = recipeSnapshot[name];
+        const unitCost = avgMaterialCosts[name] || DEFAULT_MATERIAL_COSTS[name] || 0;
+        liveCost += qty * unitCost;
+      }
+      
       const liveMargin = retailPrice > 0 ? Math.round(((retailPrice - liveCost) / retailPrice) * 100) : 0;
       const ratio = retailPrice > 0 ? Math.round((liveCost / retailPrice) * 100) : 0;
 
-      // Update Header badges in real time
-      document.getElementById(`rec-cost-badge-${accordionIndex}`).innerText = `Vốn: $${liveCost.toFixed(1)}`;
+      document.getElementById(`rec-cost-badge-${accordionIndex}`).innerText = `Vá»‘n: $${liveCost.toFixed(1)}`;
       
       const marginBadge = document.getElementById(`rec-margin-badge-${accordionIndex}`);
       marginBadge.innerText = `${liveMargin}% Marg.`;
       marginBadge.className = `badge-margin ${liveMargin >= 65 ? 'excellent' : (liveMargin >= 50 ? 'warning' : 'bad')}`;
 
-      // Update progress meter
       document.getElementById(`ratio-text-${accordionIndex}`).innerText = `${ratio}%`;
       document.getElementById(`ratio-progress-${accordionIndex}`).style.width = `${Math.min(100, ratio)}%`;
     }
 
-    // Save configuration back to Cloudflare KV
     async function saveRecipes(btn) {
-      const password = adminPassword; // Sử dụng mật khẩu động đã xác thực thành công
-      
-      // Clone original recipe database structure
+      const password = adminPassword;
       const updatedRecipes = JSON.parse(JSON.stringify(cachedRecipes));
       
       const inputs = document.querySelectorAll('#recipe-editor-container input[type="range"]');
@@ -1752,7 +2012,7 @@
       });
 
       const oldText = btn.innerText;
-      btn.innerText = "Đang đồng bộ..."; btn.disabled = true;
+      btn.innerText = "Äang Ä‘á»“ng bá»™..."; btn.disabled = true;
 
       const res = await apiPost('/api/recipes', { password, recipes: updatedRecipes });
       
@@ -1760,10 +2020,233 @@
 
       if (res) {
         cachedRecipes = updatedRecipes;
-        showToast("Đã lưu định lượng nguyên liệu mới thành công!");
-        // Re-calculate dashboard metrics
+        showToast("ÄÃ£ lÆ°u Ä‘á»‹nh lÆ°á»£ng nguyÃªn liá»‡u má»›i thÃ nh cÃ´ng!");
         await loadReports();
       }
+    }
+
+    // -------------------------------------------------------------
+    // GOOGLE SHEET SYNCHRONIZATION AND LIVE PARSING
+    // -------------------------------------------------------------
+    async function loadSyncUrl() {
+      try {
+        const res = await fetch(`${WORKER_INVENTORY_BASE}/api/sheet-url?_t=${Date.now()}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.url) {
+            document.getElementById('sync-url').value = data.url;
+          }
+        }
+      } catch (e) {
+        console.error("Failed to load sheet URL:", e);
+      }
+    }
+
+    async function syncGoogleSheet(btn) {
+      const url = document.getElementById('sync-url').value.trim();
+      const statusDiv = document.getElementById('sync-status');
+      
+      if (!url) {
+        showToast("Vui lÃ²ng nháº­p Ä‘Æ°á»ng dáº«n Apps Script Web App!", false);
+        return;
+      }
+      
+      const oldText = btn.innerText;
+      btn.innerText = "ðŸ”„ Äang Ä‘á»“ng bá»™ live..."; btn.disabled = true;
+      statusDiv.style.color = "var(--text-muted)";
+      statusDiv.innerText = "Äang káº¿t ná»‘i tá»›i Google Apps Script Web App...";
+      statusDiv.style.display = "block";
+      
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("KhÃ´ng thá»ƒ truy cáº­p Google Web App");
+        const rawData = await res.json();
+        
+        statusDiv.innerText = "Äang xá»­ lÃ½ cáº¥u trÃºc dá»¯ liá»‡u thÃ´ tá»« Google Sheet...";
+        
+        const newConfig = parseLiveSheetData(rawData);
+        
+        statusDiv.innerText = "Äang Ä‘á»“ng bá»™ cáº¥u hÃ¬nh má»›i lÃªn Cloudflare Worker...";
+        
+        const resConfig = await apiPost('/api/sheet-config', { password: adminPassword, config: newConfig });
+        if (!resConfig || !resConfig.success) throw new Error("Äá»“ng bá»™ cáº¥u hÃ¬nh lÃªn worker tháº¥t báº¡i");
+        
+        await apiPost('/api/sheet-url', { password: adminPassword, url });
+        
+        statusDiv.style.color = "var(--success)";
+        statusDiv.innerText = `Äá»“ng bá»™ thÃ nh cÃ´ng! ÄÃ£ cáº­p nháº­t ${newConfig.rawMaterials.length} NVL thÃ´, 6 bÃ¡n thÃ nh pháº©m, vÃ  ${newConfig.menuRecipes.length} cÃ´ng thá»©c menu.`;
+        showToast("Äá»“ng bá»™ Google Sheet thÃ nh cÃ´ng!");
+        
+        cachedSheetConfig = newConfig;
+        
+        // Re-seed fallbacks
+        cachedSheetConfig.rawMaterials.forEach(r => {
+          DEFAULT_MATERIAL_COSTS[r.name] = r.defaultUnitCost;
+        });
+
+        await initializeSystem();
+        await loadReports();
+      } catch (e) {
+        statusDiv.style.color = "var(--danger)";
+        statusDiv.innerText = `Äá»“ng bá»™ lá»—i: ${e.message}`;
+        showToast("Äá»“ng bá»™ Google Sheet tháº¥t báº¡i!", false);
+      } finally {
+        btn.innerText = oldText; btn.disabled = false;
+      }
+    }
+
+    // Dynamic Client Parser for 2D Google Sheet Arrays
+    function parseLiveSheetData(json) {
+      let cogsName = "CoGs";
+      let nvlName = "NVL";
+      let menuName = "Menu";
+      let semiName = "";
+      
+      for (const name in json) {
+        if (name.startsWith("CoGs ")) {
+          semiName = name;
+        }
+      }
+      
+      if (!semiName) throw new Error("KhÃ´ng tÃ¬m tháº¥y tab bÃ¡n thÃ nh pháº©m ('CoGs nguyÃªn liá»‡u bÃ¡n thÃ nh pháº©m') trong Google Sheet");
+      
+      // 1. Parse NVL (Raw Materials)
+      const nvlRaw = json[nvlName];
+      if (!nvlRaw) throw new Error("KhÃ´ng tÃ¬m tháº¥y tab NVL");
+      const rawMaterials = [];
+      let currentCategory = "";
+      
+      for (let i = 3; i < nvlRaw.length; i++) {
+        const row = nvlRaw[i];
+        if (!row || row.length < 7) continue;
+        
+        const cat = (row[0] || "").toString().trim();
+        const name = (row[2] || "").toString().trim();
+        const qty = parseFloat(row[3]) || 0;
+        const unit = (row[4] || "").toString().trim();
+        const importPrice = parseFloat(row[5]) || 0;
+        const unitCost = parseFloat(row[6]) || 0;
+        const supplier = row.length > 8 ? (row[8] || "").toString().trim() : "";
+        
+        if (cat !== "") currentCategory = cat;
+        if (name === "") continue;
+        
+        rawMaterials.push({
+          category: currentCategory,
+          name,
+          packSize: qty,
+          unit,
+          packPrice: importPrice,
+          defaultUnitCost: unitCost,
+          supplier
+        });
+      }
+      
+      // 2. Parse Semi-Finished Recipes
+      const semiSheet = json[semiName];
+      const semiFinished = {};
+      
+      function parseSemiRecipe(sheet, displayName, colOffset, startRow, endRow, yieldRow, portionRow) {
+        const ingredients = [];
+        for (let r = startRow; r <= endRow; r++) {
+          const row = sheet[r];
+          if (!row || row.length <= colOffset + 3) continue;
+          const ingName = (row[colOffset] || "").toString().trim();
+          const qty = parseFloat(row[colOffset + 1]) || 0;
+          const unit = (row[colOffset + 2] || "").toString().trim();
+          const cost = parseFloat(row[colOffset + 3]) || 0;
+          
+          if (ingName === "" || isNaN(qty) || qty === 0) continue;
+          ingredients.push({
+            name: ingName,
+            qty,
+            unit,
+            defaultCost: cost
+          });
+        }
+        
+        const yRow = sheet[yieldRow];
+        const yQty = parseFloat(yRow[colOffset + 1]) || 1.0;
+        const yUnit = (yRow[colOffset + 2] || "").toString().trim();
+        const yCost = parseFloat(yRow[colOffset + 3]) || 0;
+        
+        const pRow = sheet[portionRow];
+        const pQty = parseFloat(pRow[colOffset + 1]) || 1.0;
+        const pUnit = (pRow[colOffset + 2] || "").toString().trim();
+        const pCost = parseFloat(pRow[colOffset + 3]) || 0;
+        
+        return {
+          name: displayName,
+          yieldQty: yQty,
+          yieldUnit: yUnit,
+          yieldDefaultCost: yCost,
+          portionQty: pQty,
+          portionUnit: pUnit,
+          portionDefaultCost: pCost,
+          ingredients
+        };
+      }
+      
+      semiFinished['NuocSot'] = parseSemiRecipe(semiSheet, 'Nuoc sot', 1, 2, 17, 18, 19);
+      semiFinished['ThitNuongUop'] = parseSemiRecipe(semiSheet, 'Thit nuong uop', 6, 2, 13, 14, 15);
+      semiFinished['DoChua'] = parseSemiRecipe(semiSheet, 'Do chua', 1, 22, 27, 28, 29);
+      semiFinished['Ga'] = parseSemiRecipe(semiSheet, 'Ga', 6, 23, 25, 26, 27);
+      semiFinished['DuongSyrup'] = parseSemiRecipe(semiSheet, 'Duong syrup', 1, 34, 35, 36, 37);
+      semiFinished['ThitXaXiu'] = parseSemiRecipe(semiSheet, 'Thit xa xiu', 6, 34, 45, 46, 47);
+      
+      // 3. Parse Menu Recipes (CoGs)
+      const cogsRaw = json[cogsName];
+      if (!cogsRaw) throw new Error("KhÃ´ng tÃ¬m tháº¥y tab CoGs");
+      const menuRecipes = [];
+      let currentMenuItem = null;
+      
+      for (let i = 5; i < cogsRaw.length; i++) {
+        const row = cogsRaw[i];
+        if (!row || row.length < 9) continue;
+        
+        const cat = (row[0] || "").toString().trim();
+        const stt = (row[1] || "").toString().trim();
+        const dishName = (row[2] || "").toString().trim();
+        const ingName = (row[3] || "").toString().trim();
+        const qty = parseFloat(row[4]) || 0;
+        const unit = (row[5] || "").toString().trim();
+        const cost = parseFloat(row[6]) || 0;
+        const totalCost = parseFloat(row[7]) || 0;
+        const sellingPrice = parseFloat(row[8]) || 0;
+        
+        if (stt !== "" || (dishName !== "" && ingName !== "" && totalCost !== 0)) {
+          if (currentMenuItem) {
+            menuRecipes.push(currentMenuItem);
+          }
+          currentMenuItem = {
+            category: cat,
+            name: dishName,
+            sellingPrice,
+            defaultTotalCost: totalCost,
+            ingredients: []
+          };
+        }
+        
+        if (ingName !== "" && qty > 0) {
+          if (currentMenuItem) {
+            currentMenuItem.ingredients.push({
+              name: ingName,
+              qty,
+              unit,
+              defaultCost: cost
+            });
+          }
+        }
+      }
+      if (currentMenuItem) {
+        menuRecipes.push(currentMenuItem);
+      }
+      
+      return {
+        rawMaterials,
+        semiFinished,
+        menuRecipes
+      };
     }
   </script>
 </body>
