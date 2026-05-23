@@ -3,424 +3,1766 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Benmi Inventory Management</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <title>Benmi Advanced Inventory POS</title>
+  
+  <!-- Google Fonts: Outfit & Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --primary: #00b900;
-      --primary-dark: #009900;
-      --bg: #f4f6f8;
-      --card: #ffffff;
-      --text: #1f2937;
-      --border: #e5e7eb;
-      --red: #ef4444;
-      --orange: #f59e0b;
+      --primary: #D32F2F;        /* Deep Crimson Gourmet Red */
+      --primary-hover: #B71C1C;
+      --primary-light: rgba(211, 47, 47, 0.08);
+      --accent: #F59E0B;         /* Butter Yellow/Orange */
+      --accent-light: rgba(245, 158, 11, 0.1);
+      --success: #10B981;        /* Organic Emerald Green */
+      --success-light: rgba(16, 185, 129, 0.1);
+      --danger: #EF4444;         /* Vibrant Alert Red */
+      --danger-light: rgba(239, 68, 68, 0.08);
+      --bg: #F4F6F8;             /* Clean warm alabaster */
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --text: #1F2937;           /* Slate Charcoal */
+      --text-muted: #6B7280;
+      --border: rgba(229, 231, 235, 0.7);
+      --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+      --shadow-lg: 0 20px 40px -15px rgba(211, 47, 47, 0.15);
+      --radius: 18px;
+      --radius-sm: 12px;
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
-    
-    .header { background: #fff; padding: 15px 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 10; }
-    .header h1 { margin: 0; font-size: 18px; font-weight: 800; color: var(--primary); }
-    
-    .tabs { display: flex; background: #fff; border-bottom: 1px solid var(--border); }
-    .tab { flex: 1; text-align: center; padding: 15px; font-weight: 600; color: #6b7280; cursor: pointer; border-bottom: 2px solid transparent; }
-    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
-    
-    .content { padding: 20px; max-width: 600px; margin: 0 auto; display: none; }
-    .content.active { display: block; }
 
-    .card { background: var(--card); border-radius: 12px; padding: 20px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-    .card h2 { margin: 0 0 15px 0; font-size: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    .form-group { margin-bottom: 15px; }
-    .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #4b5563; }
-    .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 15px; }
-    .form-group input:focus { outline: none; border-color: var(--primary); }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding-bottom: 60px;
+      overflow-x: hidden;
+    }
 
-    .btn { background: var(--primary); color: white; border: none; padding: 14px; width: 100%; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.2s; }
-    .btn:active { background: var(--primary-dark); }
-    .btn.secondary { background: #e5e7eb; color: var(--text); }
-    
-    .row { display: flex; gap: 10px; }
-    .row > div { flex: 1; }
+    /* Premium Header */
+    .header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
 
-    table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 14px; }
-    th, td { padding: 10px; border-bottom: 1px solid var(--border); text-align: left; }
-    th { color: #6b7280; font-weight: 600; }
-    .diff-negative { color: var(--red); font-weight: bold; }
-    .diff-positive { color: var(--primary); font-weight: bold; }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: white; padding: 10px 20px; border-radius: 20px; font-size: 14px; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .brand-logo {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+      color: white;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 22px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .brand-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, var(--primary), var(--text));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .date-badge {
+      background: #F3F4F6;
+      border: 1px solid var(--border);
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Premium Tabs bar */
+    .tabs-container {
+      max-width: 780px;
+      margin: 16px auto 0;
+      padding: 0 16px;
+    }
+
+    .tabs {
+      display: flex;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 6px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 14px;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: none;
+      background: transparent;
+    }
+
+    .tab.active {
+      color: var(--primary);
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Content Area */
+    .content-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .content {
+      display: none;
+      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Premium Cards Grid */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      box-shadow: 0 15px 35px -8px rgba(0,0,0,0.06);
+    }
+
+    .card h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1.5px dashed var(--border);
+      padding-bottom: 12px;
+    }
+
+    /* Metrics Panels */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: linear-gradient(135deg, #FFF, #F9FAFB);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .metric-card.primary-grad {
+      background: linear-gradient(135deg, var(--primary), #FF5252);
+      color: white;
+      border: none;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .metric-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    /* High-end Form Styling */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      background: white;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-light);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 14px;
+    }
+
+    .form-row > div {
+      flex: 1;
+    }
+
+    /* Buttons */
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 16px;
+      width: 100%;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(211, 47, 47, 0.2);
+    }
+
+    .btn:hover {
+      background: var(--primary-hover);
+      box-shadow: 0 6px 18px rgba(211, 47, 47, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn.secondary {
+      background: white;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+      box-shadow: none;
+    }
+
+    .btn.secondary:hover {
+      background: #F9FAFB;
+      border-color: var(--text-muted);
+      box-shadow: none;
+      transform: translateY(-1px);
+    }
+
+    /* Staff Mobile Active Ingredient Counter Cards */
+    .ingredient-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: var(--transition);
+    }
+
+    .ingredient-info {
+      flex-grow: 1;
+    }
+
+    .ingredient-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .ingredient-unit {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .ingredient-counter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #F3F4F6;
+      padding: 4px;
+      border-radius: 99px;
+    }
+
+    .counter-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: white;
+      color: var(--text);
+      font-size: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      transition: var(--transition);
+    }
+
+    .counter-btn:active {
+      transform: scale(0.9);
+      background: #E5E7EB;
+    }
+
+    .counter-value {
+      min-width: 60px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 800;
+      border: none;
+      background: transparent;
+      outline: none;
+    }
+
+    /* Fast Action Panel for staff */
+    .quick-helper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .helper-pill {
+      background: #EFF6FF;
+      color: #2563EB;
+      border: 1px solid #BFDBFE;
+      padding: 6px 12px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .helper-pill:active {
+      transform: scale(0.95);
+      background: #DBEAFE;
+    }
+
+    /* Passcode Keypad Overlay */
+    .passcode-overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .pad-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      margin-bottom: 24px;
+    }
+
+    .dots-container {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      transition: var(--transition);
+    }
+
+    .dot.filled {
+      background: var(--primary);
+      border-color: var(--primary);
+      box-shadow: 0 0 10px var(--primary);
+      transform: scale(1.15);
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 280px;
+      width: 100%;
+    }
+
+    .key {
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: white;
+      font-family: 'Outfit', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .key:active {
+      background: #F3F4F6;
+      transform: scale(0.9);
+    }
+
+    .key.backspace {
+      border: none;
+      background: transparent;
+      font-size: 20px;
+      color: var(--danger);
+      box-shadow: none;
+    }
+
+    /* Admin Sub-navigation */
+    .admin-sub-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .admin-sub-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .sub-tab {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 10px 18px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .sub-tab.active {
+      background: var(--text);
+      color: white;
+      border-color: var(--text);
+    }
+
+    /* Premium Tables */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th {
+      background: #F9FAFB;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:last-child td {
+      border: none;
+    }
+
+    .diff-negative {
+      color: var(--danger);
+      font-weight: 800;
+      background: var(--danger-light);
+      padding: 4px 8px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    .diff-positive {
+      color: var(--success);
+      font-weight: 800;
+      background: var(--success-light);
+      padding: 4px 8px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    /* Low Stock Indicator Card */
+    .alert-banner {
+      background: #FFFBEB;
+      border: 1.5px solid #FDE68A;
+      color: #92400E;
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Accordion / Recipe Collapse Builder */
+    .accordion-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .accordion-header {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 800;
+      background: #FFF;
+      transition: var(--transition);
+      user-select: none;
+    }
+
+    .accordion-header:hover {
+      background: #F9FAFB;
+    }
+
+    .accordion-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .accordion-title-trans {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .accordion-cost-badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .accordion-body {
+      padding: 0 20px;
+      max-height: 0;
+      overflow: hidden;
+      transition: var(--transition);
+      background: #FCFCFD;
+      border-top: 1px solid transparent;
+    }
+
+    .accordion-item.active .accordion-body {
+      padding: 20px;
+      max-height: 2000px;
+      border-color: var(--border);
+    }
+
+    .accordion-item.active {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border-color: var(--border);
+    }
+
+    .accordion-item.active {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      border-color: var(--text-muted);
+    }
+
+    /* Recipe ingredient slider row */
+    .slider-row {
+      margin-bottom: 18px;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+    }
+
+    .slider-info {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+
+    .slider-input-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .slider-input-group input[type="range"] {
+      flex-grow: 1;
+      accent-color: var(--primary);
+      height: 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .slider-val-box {
+      width: 70px;
+      text-align: right;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 16px;
+    }
+
+    /* Live Cost Chart inside recipe accordion */
+    .cost-progress-wrap {
+      margin-top: 12px;
+      background: #F3F4F6;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .cost-progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--success), var(--accent));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Food Cost % Label colors */
+    .badge-margin {
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .badge-margin.excellent {
+      background: var(--success-light);
+      color: var(--success);
+    }
+
+    .badge-margin.warning {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .badge-margin.bad {
+      background: var(--danger-light);
+      color: var(--danger);
+    }
+
+    /* Toast notification styling */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(40px);
+      background: #1F2937;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      z-index: 10000;
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      color: var(--success);
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Premium Header -->
   <div class="header">
-    <h1>Benmi Inventory</h1>
-    <div id="today-date" style="font-size: 14px; color: #6b7280;"></div>
+    <div class="brand">
+      <div class="brand-logo">🥖</div>
+      <div class="brand-title">Benmi Inventory</div>
+    </div>
+    <div class="header-right">
+      <div class="date-badge" id="today-date">
+        <span>📅</span> <span id="date-text">2026-05-23</span>
+      </div>
+    </div>
   </div>
 
-  <div class="tabs">
-    <div class="tab active" onclick="switchTab('employee')">👨‍🍳 Nhân Viên</div>
-    <div class="tab" onclick="switchTab('admin')">🔒 Admin</div>
+  <!-- Role Tabs bar -->
+  <div class="tabs-container">
+    <div class="tabs">
+      <button class="tab active" onclick="switchRole('employee', this)">👨‍🍳 Kitchen / Nhân Viên</button>
+      <button class="tab" onclick="switchRole('admin', this)">🔒 Owner / Quản Lý</button>
+    </div>
   </div>
 
-  <!-- EMPLOYEE TAB -->
-  <div id="tab-employee" class="content active">
-    
-    <!-- NHẬP HÀNG -->
-    <div class="card">
-      <h2>📥 Nhập Hàng (Mua vào)</h2>
-      <div class="form-group">
-        <label>Tên Nguyên Liệu</label>
-        <input type="text" id="imp-name" placeholder="VD: Thịt heo, Pate...">
-      </div>
-      <div class="row">
-        <div class="form-group">
-          <label>Số Lượng</label>
-          <input type="number" id="imp-qty" placeholder="0">
-        </div>
-        <div class="form-group">
-          <label>Đơn Vị</label>
-          <select id="imp-unit">
-            <option value="g">Gram (g)</option>
-            <option value="kg">Kg</option>
-            <option value="ổ">Ổ</option>
-            <option value="chai">Chai</option>
-          </select>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>Tổng Tiền Chi (VNĐ / TWD)</label>
-        <input type="number" id="imp-cost" placeholder="VD: 500000">
-      </div>
-      <button class="btn" onclick="submitImport()">Lưu Nhập Hàng</button>
-    </div>
+  <!-- Content Wrapper -->
+  <div class="content-wrapper">
 
-    <!-- KHAI BÁO BÁN -->
-    <div class="card" style="display: none;">
-      <h2>🍔 Báo Cáo Bán Hàng</h2>
-      <div class="form-group">
-        <label>Món Đã Bán</label>
-        <select id="sale-name">
-          <option value="">Đang tải danh sách...</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Số Lượng Bán (Phần/Ổ)</label>
-        <input type="number" id="sale-qty" placeholder="VD: 50">
-      </div>
-      <button class="btn" onclick="submitSales()">Lưu Số Lượng Bán</button>
-    </div>
-
-    <!-- TỒN KHO THỰC TẾ -->
-    <div class="card">
-      <h2>📦 Khai Báo Tồn Kho Thực Tế (Cuối Ngày)</h2>
-      <p style="font-size: 13px; color: #6b7280; margin-top: 0;">Nhập chính xác số lượng còn lại trong tủ lạnh/kệ.</p>
+    <!-- ======================================================== -->
+    <!-- EMPLOYEE / KITCHEN TAB -->
+    <!-- ======================================================== -->
+    <div id="tab-employee" class="content active">
       
-      <div id="actual-items-container">
-        <div class="row actual-item-row" style="margin-bottom: 10px;">
-          <div class="form-group" style="margin:0; flex: 2;">
-            <input type="text" class="act-name" placeholder="Tên hàng">
+      <!-- 📥 NHẬP HÀNG CARD -->
+      <div class="card">
+        <h2>📥 Nhập Hàng Mới (Purchase)</h2>
+        
+        <div class="form-group">
+          <label>Tên Nguyên Liệu</label>
+          <select id="imp-name" onchange="onImportNameSelect(this.value)">
+            <option value="">-- Chọn hoặc nhập tự do bên dưới --</option>
+            <option value="Bánh mì (ổ)">🥖 Bánh mì (ổ)</option>
+            <option value="Thịt xíu (g)">🍖 Thịt xíu (g)</option>
+            <option value="Chả (lát)">🥩 Chả (lát)</option>
+            <option value="Thịt gà (g)">🍗 Thịt gà (g)</option>
+            <option value="Thịt nướng (lát)">🍢 Thịt nướng (lát)</option>
+            <option value="Phô mai (lát)">🧀 Phô mai (lát)</option>
+            <option value="Đồ chua (g)">🥕 Đồ chua (g)</option>
+            <option value="Bơ (g)">🧈 Bơ (g)</option>
+            <option value="Pate (g)">🧆 Pate (g)</option>
+            <option value="Ly (cái)">🥛 Ly (cái)</option>
+            <option value="Nắp (cái)">🥤 Nắp (cái)</option>
+            <option value="Giấy gói (cái)">📄 Giấy gói (cái)</option>
+            <option value="Túi nilong (cái)">🛍️ Túi nilong (cái)</option>
+          </select>
+          <input type="text" id="imp-name-custom" placeholder="Gõ tên nguyên liệu khác nếu không có trong list..." style="margin-top: 10px;">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Số Lượng Nhập</label>
+            <input type="number" id="imp-qty" placeholder="Nhập số lượng..." min="0" oninput="calculateUnitCost()">
           </div>
-          <div class="form-group" style="margin:0; flex: 1;">
-            <input type="number" class="act-qty" placeholder="SL">
-          </div>
-          <div class="form-group" style="margin:0; flex: 1;">
-            <select class="act-unit">
-              <option value="g">g</option>
-              <option value="ổ">ổ</option>
+          <div class="form-group">
+            <label>Đơn Vị</label>
+            <select id="imp-unit">
+              <option value="g">Gram (g)</option>
+              <option value="ổ">Ổ</option>
+              <option value="lát">Lát</option>
+              <option value="cái">Cái</option>
+              <option value="chai">Chai</option>
+              <option value="kg">Kilogram (kg)</option>
             </select>
           </div>
         </div>
-      </div>
-      <button class="btn secondary" style="margin-bottom: 15px;" onclick="addActualRow()">+ Thêm dòng</button>
-      <button class="btn" onclick="submitActual()">Lưu Tồn Kho Thực Tế</button>
-    </div>
 
-  </div>
+        <div class="form-group">
+          <label>Tổng Tiền Chi (TWD / VNĐ)</label>
+          <div class="input-wrapper">
+            <span style="position: absolute; left: 16px; top: 14px; font-weight: 700; color: var(--text-muted);">$</span>
+            <input type="number" id="imp-cost" placeholder="0.00" min="0" style="padding-left: 32px;" oninput="calculateUnitCost()">
+          </div>
+        </div>
 
-  <!-- ADMIN TAB -->
-  <div id="tab-admin" class="content">
-    
-    <div class="card" id="admin-login">
-      <h2>Bảo Mật Quản Lý</h2>
-      <div class="form-group">
-        <label>Mật Khẩu Admin</label>
-        <input type="password" id="admin-pass" placeholder="Nhập mật khẩu...">
-      </div>
-      <button class="btn" onclick="loadReports()">Xem Báo Cáo & Tồn Kho</button>
-    </div>
+        <div id="unit-cost-preview" style="font-size: 14px; font-weight: 600; color: var(--primary); margin-top:-10px; margin-bottom: 18px; display: none;">
+          Đơn giá ước tính: $0/đơn vị
+        </div>
 
-    <div id="admin-dashboard" style="display: none;">
-      
-      <div class="card" style="background: var(--primary); color: white;">
-        <h2 style="border-color: rgba(255,255,255,0.2);">Tổng Chi Phí Tháng Này</h2>
-        <div style="font-size: 28px; font-weight: 800;" id="report-cost">0</div>
+        <button class="btn" onclick="submitImport(this)">💾 Lưu Nhập Hàng</button>
       </div>
 
-      <button class="btn secondary" style="margin-bottom: 20px;" onclick="document.getElementById('recipe-modal').style.display='block'; renderRecipeEditor();">Quản Lý Định Lượng (Recipes)</button>
-
+      <!-- 📦 KIỂM KHO THỰC TẾ CARD -->
       <div class="card">
-        <h2>📊 Đối Chiếu Hao Hụt</h2>
-        <p style="font-size: 13px; color: #6b7280; margin-top: 0;">(Lý thuyết = Nhập - Đã Bán. Hao hụt âm = Thiếu/Thất thoát)</p>
-        <table>
-          <thead>
-            <tr>
-              <th>Nguyên Liệu</th>
-              <th>Lý Thuyết</th>
-              <th>Thực Tế</th>
-              <th>Hao hụt</th>
-            </tr>
-          </thead>
-          <tbody id="report-table">
-            <!-- Data -->
-          </tbody>
-        </table>
+        <h2>📦 Báo Cáo Tồn Kho Cuối Ngày (Physical Count)</h2>
+        <p style="font-size: 14px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
+          Nhân viên đếm và nhập số lượng tồn kho còn lại trong tủ lạnh/kệ trước khi đóng cửa quán.
+        </p>
+
+        <!-- Dynamic Kitchen Friendly Counter List -->
+        <div id="actual-ingredients-list">
+          <!-- Populated dynamically with active recipe ingredients -->
+          <div style="text-align: center; padding: 20px; color: var(--text-muted);">Đang tải danh sách nguyên liệu...</div>
+        </div>
+
+        <button class="btn" style="margin-top: 12px;" onclick="submitActual(this)">📤 Gửi Tồn Kho Thực Tế</button>
       </div>
 
-      <button class="btn secondary" onclick="document.getElementById('admin-dashboard').style.display='none'; document.getElementById('admin-login').style.display='block';">Đóng</button>
     </div>
 
-  </div>
+    <!-- ======================================================== -->
+    <!-- SECURE PASSCODE SCREEN (For Owner dashboard) -->
+    <!-- ======================================================== -->
+    <div id="tab-admin-secure" class="content">
+      <div class="card passcode-overlay">
+        <div class="pad-title">🔒 Xác Minh Quyền Quản Lý (Owner)</div>
+        <div class="dots-container" id="passcode-dots-wrap" style="margin-bottom: 24px; min-height: 36px; display: flex; align-items: center; justify-content: center;">
+          <div style="font-size: 28px; letter-spacing: 8px; color: var(--primary); font-weight: bold;" id="masked-passcode-preview"></div>
+        </div>
+        <div class="keypad">
+          <button class="key" onclick="pressKey(1)">1</button>
+          <button class="key" onclick="pressKey(2)">2</button>
+          <button class="key" onclick="pressKey(3)">3</button>
+          <button class="key" onclick="pressKey(4)">4</button>
+          <button class="key" onclick="pressKey(5)">5</button>
+          <button class="key" onclick="pressKey(6)">6</button>
+          <button class="key" onclick="pressKey(7)">7</button>
+          <button class="key" onclick="pressKey(8)">8</button>
+          <button class="key" onclick="pressKey(9)">9</button>
+          <button class="key backspace" onclick="pressKey('back')">⌫</button>
+          <button class="key" onclick="pressKey(0)">0</button>
+          <button class="key" style="border-color: var(--primary); color: var(--primary); font-size:18px;" onclick="pressKey('ok')">OK</button>
+        </div>
+      </div>
+    </div>
 
-  <!-- RECIPE MODAL -->
-  <div id="recipe-modal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; overflow-y: auto;">
-    <div class="card" style="margin: 20px auto; max-width: 600px; position: relative;">
-      <h2 style="position: sticky; top: -20px; background: white; padding: 20px 0; z-index: 10;">Cài Đặt Định Lượng 
-        <button style="float: right; padding: 5px 10px;" onclick="document.getElementById('recipe-modal').style.display='none';">Đóng</button>
-      </h2>
-      <p style="font-size: 13px; color: #6b7280; margin-top: -10px;">Thay đổi số lượng các nguyên liệu cho từng món.</p>
+    <!-- ======================================================== -->
+    <!-- ADMIN / OWNER DASHBOARD TAB -->
+    <!-- ======================================================== -->
+    <div id="tab-admin" class="content">
       
-      <div id="recipe-editor-container"></div>
+      <!-- Sub Tabs Bar -->
+      <div class="admin-sub-tabs">
+        <button class="sub-tab active" onclick="switchAdminSub('dashboard', this)">📊 Phân Tích Doanh Thu & Giá Vốn</button>
+        <button class="sub-tab" onclick="switchAdminSub('hao-hut', this)">🔍 Đối Chiếu Thất Thoát</button>
+        <button class="sub-tab" onclick="switchAdminSub('recipes', this)">📐 Định Lượng Recipes</button>
+      </div>
 
-      <button class="btn" style="position: sticky; bottom: -20px; box-shadow: 0 -4px 10px rgba(0,0,0,0.1);" onclick="saveRecipes()">Lưu Định Lượng</button>
+      <!-- 1. SUB-TAB: ANALYTICS & FOOD COST -->
+      <div id="admin-sub-dashboard" class="admin-sub-content" style="display: block;">
+        
+        <div class="metrics-grid">
+          <div class="metric-card primary-grad">
+            <div class="metric-title">Tổng chi nguyên liệu (Tháng)</div>
+            <div class="metric-value" id="report-cost">$0</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-title">Biên lợi nhuận trung bình</div>
+            <div class="metric-value" id="report-avg-margin" style="color: var(--success);">--%</div>
+          </div>
+        </div>
+
+        <!-- Low Stock warning banner -->
+        <div id="low-stock-alert-wrap" style="display: none;"></div>
+
+        <div class="card">
+          <h2>🍔 Phân Tích Lợi Nhuận Từng Món (Retail vs Food Cost)</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
+            Tính giá vốn nguyên liệu thực tế dựa trên công thức Recipes và giá nhập trung bình, so sánh với giá bán lẻ trên hệ thống đặt hàng.
+          </p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Món Ăn</th>
+                  <th>Giá Bán Lẻ</th>
+                  <th>Giá Vốn (Food Cost)</th>
+                  <th>Biên Lợi Nhuận (%)</th>
+                </tr>
+              </thead>
+              <tbody id="profit-margin-table-body">
+                <!-- Calculated dynamically from recipes & prices -->
+                <tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Đang tải và tính toán...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. SUB-TAB: RECONCILIATION & LOSS AUDITING -->
+      <div id="admin-sub-hao-hut" class="admin-sub-content" style="display: none;">
+        <div class="card">
+          <h2>🔍 Bảng Đối Chiếu Thất Thoát / Hao Hụt Chi Tiết</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
+            Hao Hụt = Tồn Thực Tế - Tồn Lý Thuyết (Dựa trên Nhật ký Bán & Nhập). Hao hụt âm thể hiện hàng bị thất thoát/lãng phí, quy đổi thành số tiền mặt thực tế thất thoát.
+          </p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nguyên Vật Liệu</th>
+                  <th>Tồn Sổ Sách</th>
+                  <th>Tồn Thực Tế</th>
+                  <th>Chênh Lệch</th>
+                  <th>Quy Thành Tiền Thất Thoát</th>
+                </tr>
+              </thead>
+              <tbody id="report-table-body">
+                <!-- Discrepancy details -->
+                <tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Đang tính toán hao hụt...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. SUB-TAB: INTERACTIVE RECIPE CONFIGURATOR -->
+      <div id="admin-sub-recipes" class="admin-sub-content" style="display: none;">
+        <div class="card">
+          <h2>📐 Trình Chỉnh Sửa Định Lượng (Recipe Editor) Thông Minh</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-top: -12px; margin-bottom: 20px; font-weight: 500;">
+            Nhấn vào từng món bánh mì để xem và điều chỉnh định lượng nguyên liệu bằng thanh kéo. Biên lợi nhuận và giá vốn của món sẽ tự động tính toán lại theo thời gian thực!
+          </p>
+          <div id="recipe-editor-container">
+            <!-- Accordion populated from recipes -->
+            <div style="text-align: center; color: var(--text-muted); padding: 20px;">Đang thiết lập định lượng...</div>
+          </div>
+          
+          <button class="btn" style="margin-top: 20px;" onclick="saveRecipes(this)">💾 Lưu Thay Đổi Định Lượng</button>
+        </div>
+      </div>
+
     </div>
+
   </div>
 
-  <div id="toast" class="toast">Thành công!</div>
+  <!-- Notification Toast -->
+  <div id="toast" class="toast">
+    <span class="toast-icon">✓</span>
+    <span id="toast-text">Thành công!</span>
+  </div>
 
+  <!-- JavaScript logic -->
   <script>
-    const WORKER_BASE = "https://tonkhobenmi.thuanmnc.workers.dev";
-    let cachedRecipes = {};
+    const WORKER_INVENTORY_BASE = "https://tonkhobenmi.thuanmnc.workers.dev";
+    const WORKER_MENU_BASE = "https://benmi-worker-official.thuanmnc.workers.dev";
     
-    // Utils
-    function getTodayStr() {
-      const today = new Date(Date.now() + 8 * 3600000);
-      return today.toISOString().split('T')[0];
-    }
-    document.getElementById('today-date').innerText = getTodayStr();
+    let cachedRecipes = {};
+    let cachedMenu = {};
+    let activeIngredients = [];
+    let avgMaterialCosts = {}; // Material name -> Unit Cost ($/g, $/cái...)
+    
+    // Passcode security variables
+    let enteredPasscode = "";
+    let adminPassword = ""; // Caches verified dynamic passcode from backend
+    let isOwnerAuthorized = false;
 
-    // Initial Load
-    window.onload = async () => {
-      try {
-        const res = await fetch(`${WORKER_BASE}/api/recipes`);
-        const data = await res.json();
-        if (data.recipes) {
-          cachedRecipes = data.recipes;
-          populateSalesDropdown(data.recipes);
-        }
-      } catch (e) {
-        console.error("Lỗi khi tải danh sách món:", e);
-      }
+    // Default Fallback values for Material Costs if import log is empty
+    const DEFAULT_MATERIAL_COSTS = {
+      "Bánh mì (ổ)": 10,
+      "Thịt xíu (g)": 0.25,
+      "Chả (lát)": 4,
+      "Thịt gà (g)": 0.3,
+      "Thịt nướng (lát)": 12,
+      "Phô mai (lát)": 5,
+      "Đồ chua (g)": 0.05,
+      "Bơ (g)": 0.1,
+      "Pate (g)": 0.15,
+      "Ly (cái)": 2,
+      "Nắp (cái)": 1,
+      "Giấy gói (cái)": 0.5,
+      "Túi nilong (cái)": 1
     };
 
-    function populateSalesDropdown(recipes) {
-      const select = document.getElementById('sale-name');
-      select.innerHTML = '';
-      for (const itemName in recipes) {
-        const option = document.createElement('option');
-        option.value = itemName;
-        option.innerText = itemName;
-        select.appendChild(option);
+    // Mapping between Vietnamese recipe ingredients and Chinese menu items for Food Cost margin calculation
+    const RECIPE_TO_MENU_MAPPING = {
+      "Bánh mì Lớn - Thịt xíu": { key: "燒肉", category: "large", label: "Bánh mì Lớn - Thịt xíu" },
+      "Bánh mì Lớn - Chả": { key: "火腿", category: "large", label: "Bánh mì Lớn - Chả" },
+      "Bánh mì Lớn - Thịt gà": { key: "雞肉", category: "large", label: "Bánh mì Lớn - Thịt gà" },
+      "Bánh mì Lớn - Thịt nướng": { key: "烤肉", category: "large", label: "Bánh mì Lớn - Thịt nướng" },
+      "Bánh mì Lớn - Thịt nướng phô mai": { key: "雙層烤肉", category: "large", label: "Bánh mì Lớn - Thịt nướng phô mai" },
+      "Bánh mì Lớn - Thập cẩm": { key: "綜合", category: "large", label: "Bánh mì Lớn - Thập cẩm" },
+      
+      "Bánh mì Nhỏ - Thịt xíu": { key: "燒肉", category: "small", label: "Bánh mì Nhỏ - Thịt xíu" },
+      "Bánh mì Nhỏ - Chả": { key: "火腿", category: "small", label: "Bánh mì Nhỏ - Chả" },
+      "Bánh mì Nhỏ - Thịt gà": { key: "雞肉", category: "small", label: "Bánh mì Nhỏ - Thịt gà" },
+      "Bánh mì Nhỏ - Thịt nướng": { key: "烤肉", category: "small", label: "Bánh mì Nhỏ - Thịt nướng" },
+      "Bánh mì Nhỏ - Thịt nướng phô mai": { key: "雙層烤肉", category: "small", label: "Bánh mì Nhỏ - Thịt nướng phô mai" },
+      "Bánh mì Nhỏ - Thập cẩm": { key: "綜合", category: "small", label: "Bánh mì Nhỏ - Thập cẩm" },
+
+      "Nước - Cà phê sữa": { key: "越南咖啡", category: "drinks", label: "Nước - Cà phê sữa" },
+      "Nước - Sữa đậu nành": { key: "豆漿", category: "drinks", label: "Nước - Sữa đậu nành" },
+      "Nước - Hồng trà": { key: "紅茶", category: "drinks", label: "Nước - Hồng trà" }
+    };
+
+    // -------------------------------------------------------------
+    // UTILITY FUNCTIONS
+    // -------------------------------------------------------------
+    function getTodayStr() {
+      const today = new Date(Date.now() + 8 * 3600000); // UTC+8
+      return today.toISOString().split('T')[0];
+    }
+
+    document.getElementById('date-text').innerText = getTodayStr();
+
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      text.innerText = msg;
+      toast.querySelector('.toast-icon').innerText = isSuccess ? '✓' : '⚠️';
+      toast.querySelector('.toast-icon').style.color = isSuccess ? 'var(--success)' : 'var(--danger)';
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3500);
+    }
+
+    // Swapping Roles
+    function switchRole(role, btn) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+
+      if (role === 'admin') {
+        if (isOwnerAuthorized) {
+          document.getElementById('tab-admin').classList.add('active');
+          loadReports();
+        } else {
+          document.getElementById('tab-admin-secure').classList.add('active');
+          clearPasscode();
+        }
+      } else {
+        document.getElementById('tab-employee').classList.add('active');
       }
-      select.parentElement.parentElement.style.display = 'block'; // Show card
     }
 
-    function showToast(msg) {
-      const t = document.getElementById('toast');
-      t.innerText = msg;
-      t.style.opacity = 1;
-      setTimeout(() => t.style.opacity = 0, 3000);
+    // Swapping Admin Sub-tabs
+    function switchAdminSub(subTabId, btn) {
+      document.querySelectorAll('.sub-tab').forEach(st => st.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.admin-sub-content').forEach(sc => sc.style.display = 'none');
+      document.getElementById(`admin-sub-${subTabId}`).style.display = 'block';
+
+      if (subTabId === 'recipes') {
+        renderRecipeEditor();
+      }
     }
 
-    function switchTab(tab) {
-      document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
-      document.querySelectorAll('.content').forEach(e => e.classList.remove('active'));
-      event.target.classList.add('active');
-      document.getElementById(`tab-${tab}`).classList.add('active');
+    // Input dropdown handler
+    function onImportNameSelect(val) {
+      const customInput = document.getElementById('imp-name-custom');
+      if (val === "") {
+        customInput.style.display = "block";
+      } else {
+        customInput.style.display = "none";
+        customInput.value = "";
+      }
+      
+      // Auto-populate unit choice
+      const unitSelect = document.getElementById('imp-unit');
+      if (val.includes("(g)")) {
+        unitSelect.value = "g";
+      } else if (val.includes("(ổ)")) {
+        unitSelect.value = "ổ";
+      } else if (val.includes("(lát)")) {
+        unitSelect.value = "lát";
+      } else if (val.includes("(cái)")) {
+        unitSelect.value = "cái";
+      }
+      calculateUnitCost();
     }
 
-    function addActualRow() {
-      const container = document.getElementById('actual-items-container');
-      const row = document.createElement('div');
-      row.className = 'row actual-item-row';
-      row.style.marginBottom = '10px';
-      row.innerHTML = `
-        <div class="form-group" style="margin:0; flex: 2;"><input type="text" class="act-name" placeholder="Tên hàng"></div>
-        <div class="form-group" style="margin:0; flex: 1;"><input type="number" class="act-qty" placeholder="SL"></div>
-        <div class="form-group" style="margin:0; flex: 1;"><select class="act-unit"><option value="g">g</option><option value="ổ">ổ</option></select></div>
-      `;
-      container.appendChild(row);
+    function calculateUnitCost() {
+      const qty = parseFloat(document.getElementById('imp-qty').value);
+      const cost = parseFloat(document.getElementById('imp-cost').value);
+      const preview = document.getElementById('unit-cost-preview');
+      
+      if (qty > 0 && cost >= 0) {
+        const per = (cost / qty).toFixed(2);
+        preview.innerText = `Đơn giá ước tính: $${per} TWD / đơn vị`;
+        preview.style.display = "block";
+      } else {
+        preview.style.display = "none";
+      }
     }
 
-    // API Calls
-    async function apiCall(endpoint, data) {
+    // -------------------------------------------------------------
+    // INITIAL LOAD
+    // -------------------------------------------------------------
+    window.onload = async () => {
+      await initializeSystem();
+    };
+
+    async function initializeSystem() {
       try {
-        const res = await fetch(`${WORKER_BASE}${endpoint}`, {
+        // Parallel loading of recipes & menu
+        const [resRecipes, resMenu] = await Promise.all([
+          fetch(`${WORKER_INVENTORY_BASE}/api/recipes?_t=${Date.now()}`),
+          fetch(`${WORKER_MENU_BASE}/api/menu?_t=${Date.now()}`).catch(() => null)
+        ]);
+
+        if (resRecipes.ok) {
+          const data = await resRecipes.json();
+          cachedRecipes = data.recipes || {};
+          
+          // Extrapolate list of unique ingredients used in active recipes
+          extractActiveIngredients(cachedRecipes);
+        }
+
+        if (resMenu && resMenu.ok) {
+          cachedMenu = await resMenu.json();
+        }
+        
+        renderKitchenIngredientCounters();
+      } catch (e) {
+        console.error("Initialization error:", e);
+        showToast("Lỗi khi tải cấu hình định lượng", false);
+      }
+    }
+
+    function extractActiveIngredients(recipes) {
+      const set = new Set();
+      for (const dishName in recipes) {
+        for (const ingName in recipes[dishName]) {
+          set.add(ingName);
+        }
+      }
+      activeIngredients = Array.from(set);
+    }
+
+    // Render interactive cards in kitchen/staff mode
+    function renderKitchenIngredientCounters() {
+      const container = document.getElementById('actual-ingredients-list');
+      container.innerHTML = "";
+
+      if (activeIngredients.length === 0) {
+        container.innerHTML = `<div style="text-align: center; padding: 20px; color: var(--text-muted);">Chưa có nguyên liệu định lượng nào được cấu hình.</div>`;
+        return;
+      }
+
+      activeIngredients.forEach((ing, index) => {
+        const unit = ing.includes("(g)") ? "g" : (ing.includes("(lát)") ? "lát" : (ing.includes("(cái)") ? "cái" : "ổ"));
+        const cleanName = ing.replace(/\s*\(.*?\)/, ""); // Strip (g), (ổ)... for visual cleanliness
+
+        const card = document.createElement('div');
+        card.className = "ingredient-card";
+        
+        card.innerHTML = `
+          <div class="ingredient-info">
+            <div class="ingredient-title">${cleanName}</div>
+            <div class="ingredient-unit">Đơn vị đếm: <strong>${unit}</strong></div>
+            <div class="quick-helper">
+              <span class="helper-pill" onclick="adjustCounter(${index}, 10)">+10</span>
+              <span class="helper-pill" onclick="adjustCounter(${index}, 50)">+50</span>
+              <span class="helper-pill" onclick="adjustCounter(${index}, 100)">+100</span>
+              <span class="helper-pill" onclick="adjustCounter(${index}, 500)">+500</span>
+            </div>
+          </div>
+          <div class="ingredient-counter">
+            <button class="counter-btn" onclick="adjustCounter(${index}, -1)">-</button>
+            <input type="number" id="act-input-${index}" class="counter-value" value="0" min="0" data-ing="${ing}" data-unit="${unit}">
+            <button class="counter-btn" onclick="adjustCounter(${index}, 1)">+</button>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function adjustCounter(index, val) {
+      const input = document.getElementById(`act-input-${index}`);
+      if (input) {
+        let current = parseFloat(input.value) || 0;
+        input.value = Math.max(0, current + val);
+      }
+    }
+
+    // -------------------------------------------------------------
+    // PASSCODE SECURITY LOGIC
+    // -------------------------------------------------------------
+    function pressKey(val) {
+      if (val === 'back') {
+        enteredPasscode = enteredPasscode.slice(0, -1);
+        drawPasscodeDots();
+        return;
+      }
+      if (val === 'ok') {
+        verifyPasscode();
+        return;
+      }
+      
+      if (enteredPasscode.length < 8) {
+        enteredPasscode += val;
+        drawPasscodeDots();
+      }
+    }
+
+    function drawPasscodeDots() {
+      const preview = document.getElementById('masked-passcode-preview');
+      if (preview) {
+        preview.innerText = "● ".repeat(enteredPasscode.length).trim();
+      }
+    }
+
+    function clearPasscode() {
+      enteredPasscode = "";
+      drawPasscodeDots();
+    }
+
+    async function verifyPasscode() {
+      if (!enteredPasscode) {
+        showToast("Vui lòng nhập mật khẩu!", false);
+        return;
+      }
+
+      const dotsWrap = document.getElementById('passcode-dots-wrap');
+      dotsWrap.style.opacity = 0.5;
+
+      try {
+        const res = await apiPost('/api/auth', { password: enteredPasscode });
+        if (res && res.success) {
+          isOwnerAuthorized = true;
+          adminPassword = enteredPasscode; // Cất mật khẩu để dùng cho các API sau
+          showToast("Xác thực quản trị thành công!");
+          document.getElementById('tab-admin-secure').classList.remove('active');
+          document.getElementById('tab-admin').classList.add('active');
+          loadReports();
+        } else {
+          showToast("Mật khẩu Admin không chính xác! Vui lòng thử lại.", false);
+          clearPasscode();
+        }
+      } catch (e) {
+        showToast("Lỗi xác thực hệ thống!", false);
+        clearPasscode();
+      } finally {
+        dotsWrap.style.opacity = 1;
+      }
+    }
+
+    // -------------------------------------------------------------
+    // API ENDPOINT SUBMISSIONS
+    // -------------------------------------------------------------
+    async function apiPost(endpoint, data) {
+      try {
+        const res = await fetch(`${WORKER_INVENTORY_BASE}${endpoint}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...data, date: getTodayStr() })
         });
         const result = await res.json();
         if (res.ok) return result;
-        throw new Error(result.error || "Lỗi server");
+        throw new Error(result.error || "Lỗi giao tiếp máy chủ");
       } catch (e) {
-        alert(e.message);
+        showToast(e.message, false);
         return null;
       }
     }
 
-    async function submitImport() {
-      const name = document.getElementById('imp-name').value;
-      const qty = document.getElementById('imp-qty').value;
+    async function submitImport(btn) {
+      let name = document.getElementById('imp-name').value;
+      const customName = document.getElementById('imp-name-custom').value.trim();
+      const qty = parseFloat(document.getElementById('imp-qty').value);
       const unit = document.getElementById('imp-unit').value;
-      const cost = document.getElementById('imp-cost').value;
-      if(!name || !qty || !cost) return alert("Vui lòng điền đủ thông tin!");
+      const cost = parseFloat(document.getElementById('imp-cost').value);
+
+      if (name === "" && customName !== "") {
+        name = customName;
+      }
+
+      if (!name || isNaN(qty) || qty <= 0 || isNaN(cost) || cost < 0) {
+        showToast("Vui lòng điền đầy đủ và chính xác các thông tin!", false);
+        return;
+      }
+
+      const oldText = btn.innerText;
+      btn.innerText = "Đang xử lý..."; btn.disabled = true;
+
+      const res = await apiPost('/api/import', { name, qty, unit, cost });
       
-      const btn = event.target; btn.disabled = true; btn.innerText = "...";
-      const res = await apiCall('/api/import', { name, qty, unit, cost });
-      btn.disabled = false; btn.innerText = "Lưu Nhập Hàng";
-      
+      btn.innerText = oldText; btn.disabled = false;
+
       if (res) {
-        showToast("Đã lưu nhập hàng!");
+        showToast("Đã lưu nhập kho thành công!");
         document.getElementById('imp-name').value = '';
+        document.getElementById('imp-name-custom').value = '';
+        document.getElementById('imp-name-custom').style.display = 'none';
         document.getElementById('imp-qty').value = '';
         document.getElementById('imp-cost').value = '';
+        document.getElementById('unit-cost-preview').style.display = 'none';
+        
+        // Refresh active list if custom item was introduced
+        await initializeSystem();
       }
     }
 
-    async function submitSales() {
-      const itemName = document.getElementById('sale-name').value;
-      const qty = document.getElementById('sale-qty').value;
-      if(!qty) return alert("Vui lòng nhập số lượng!");
-      
-      const btn = event.target; btn.disabled = true; btn.innerText = "...";
-      const res = await apiCall('/api/sales', { itemName, qty });
-      btn.disabled = false; btn.innerText = "Lưu Số Lượng Bán";
-      
-      if (res) {
-        showToast("Đã lưu bán hàng!");
-        document.getElementById('sale-qty').value = '';
-      }
-    }
-
-    async function submitActual() {
-      const rows = document.querySelectorAll('.actual-item-row');
+    async function submitActual(btn) {
       const items = [];
-      rows.forEach(r => {
-        const name = r.querySelector('.act-name').value;
-        const qty = r.querySelector('.act-qty').value;
-        const unit = r.querySelector('.act-unit').value;
-        if(name && qty) items.push({ name, qty: Number(qty), unit });
+      const inputs = document.querySelectorAll('#actual-ingredients-list .counter-value');
+      
+      inputs.forEach(input => {
+        const name = input.getAttribute('data-ing');
+        const qty = parseFloat(input.value) || 0;
+        const unit = input.getAttribute('data-unit');
+        
+        items.push({ name, qty, unit });
       });
 
-      if(items.length === 0) return alert("Vui lòng điền ít nhất 1 dòng");
+      if (items.length === 0) {
+        showToast("Không tìm thấy nguyên vật liệu nào để lưu!", false);
+        return;
+      }
+
+      const oldText = btn.innerText;
+      btn.innerText = "Đang truyền tải..."; btn.disabled = true;
+
+      const res = await apiPost('/api/actual', { items });
       
-      const btn = event.target; btn.disabled = true; btn.innerText = "...";
-      const res = await apiCall('/api/actual', { items });
-      btn.disabled = false; btn.innerText = "Lưu Tồn Kho Thực Tế";
-      
+      btn.innerText = oldText; btn.disabled = false;
+
       if (res) {
-        showToast("Đã cập nhật kho thực tế!");
+        showToast("Đã ghi nhận tồn kho thực tế cuối ngày!");
       }
     }
 
+    // -------------------------------------------------------------
+    // OWNER DATA LOADING & CALCULATIONS (BI / ANALYTICS)
+    // -------------------------------------------------------------
     async function loadReports() {
-      const password = document.getElementById('admin-pass').value;
-      if(!password) return alert("Nhập mật khẩu!");
-
-      const btn = event.target; btn.disabled = true; btn.innerText = "Đang tải...";
-      const res = await apiCall('/api/reports', { password });
-      btn.disabled = false; btn.innerText = "Xem Báo Cáo & Tồn Kho";
+      const passcode = adminPassword; // Sử dụng mật khẩu động đã xác thực thành công
+      const res = await apiPost('/api/reports', { password: passcode });
 
       if (res) {
-        document.getElementById('admin-login').style.display = 'none';
-        document.getElementById('admin-dashboard').style.display = 'block';
+        // Calculate average material unit cost based on imports to compute live food cost per dish
+        avgMaterialCosts = calculateAverageMaterialCosts(res.logs.imports);
         
-        document.getElementById('report-cost').innerText = res.totalCost.toLocaleString();
-        
-        const tbody = document.getElementById('report-table');
-        tbody.innerHTML = '';
-        res.discrepancies.forEach(d => {
-          let diffClass = '';
-          if(typeof d.actual === 'number') {
-            diffClass = d.diff < 0 ? 'diff-negative' : (d.diff > 0 ? 'diff-positive' : '');
-          }
-          let diffText = d.diff > 0 ? `+${d.diff}` : d.diff;
+        // Render statistics metric counters
+        document.getElementById('report-cost').innerText = `$${res.totalCost.toLocaleString()} TWD`;
 
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td>${d.name}</td>
-            <td>${d.theoretical}</td>
-            <td>${d.actual}</td>
-            <td class="${diffClass}">${typeof d.actual === 'number' ? diffText : '-'}</td>
-          `;
-          tbody.appendChild(tr);
-        });
+        // Render profit margin BI analysis table
+        const overallAvgMargin = renderProfitMarginAnalysisTable();
+        document.getElementById('report-avg-margin').innerText = `${overallAvgMargin}%`;
+
+        // Render discrepancy table (Hao hụt)
+        renderDiscrepancyTable(res.discrepancies);
+
+        // Render low stock warning
+        checkLowStockAlerts(res.discrepancies);
       }
     }
 
-    // Recipe Management
+    // Compute average cost per unit (e.g. cost per gram) of materials from import histories
+    function calculateAverageMaterialCosts(imports) {
+      const totals = {}; // materialName -> { totalCost, totalQty }
+      
+      // Seed with default unit costs
+      const result = { ...DEFAULT_MATERIAL_COSTS };
+
+      if (Array.isArray(imports)) {
+        imports.forEach(imp => {
+          if (!totals[imp.name]) totals[imp.name] = { cost: 0, qty: 0 };
+          totals[imp.name].cost += imp.cost || 0;
+          totals[imp.name].qty += imp.qty || 0;
+        });
+
+        // Compute actual division
+        for (const name in totals) {
+          if (totals[name].qty > 0) {
+            result[name] = totals[name].cost / totals[name].qty;
+          }
+        }
+      }
+      return result;
+    }
+
+    // Build the business intelligence table linking recipes cost to retail menu pricing
+    function renderProfitMarginAnalysisTable() {
+      const tbody = document.getElementById('profit-margin-table-body');
+      tbody.innerHTML = "";
+
+      let totalMarginSum = 0;
+      let itemsCount = 0;
+
+      for (const recipeName in cachedRecipes) {
+        const mapping = RECIPE_TO_MENU_MAPPING[recipeName];
+        if (!mapping) continue;
+
+        // Fetch retail price from loaded order menu
+        const menuCategory = cachedMenu[mapping.category] || {};
+        const retailPrice = menuCategory[mapping.key] || 0;
+
+        // Compute food cost based on recipes and average material cost
+        const foodCost = calculateDishFoodCost(cachedRecipes[recipeName]);
+
+        const profit = retailPrice - foodCost;
+        const marginPct = retailPrice > 0 ? Math.round((profit / retailPrice) * 100) : 0;
+
+        totalMarginSum += marginPct;
+        itemsCount++;
+
+        let marginClass = 'bad';
+        if (marginPct >= 65) {
+          marginClass = 'excellent';
+        } else if (marginPct >= 50) {
+          marginClass = 'warning';
+        }
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${mapping.label}</strong> <span style="font-size:12px; color:var(--text-muted); block">${mapping.key} (${mapping.category === 'large' ? 'Đại' : (mapping.category === 'small' ? 'Nhỏ' : 'Nước')})</span></td>
+          <td style="font-weight:700;">$${retailPrice} TWD</td>
+          <td style="font-weight:700; color:var(--primary);">$${foodCost.toFixed(2)} TWD</td>
+          <td><span class="badge-margin ${marginClass}">${marginPct}%</span></td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      if (itemsCount === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Không tìm thấy thông tin phù hợp trên menu.</td></tr>`;
+        return 0;
+      }
+
+      return Math.round(totalMarginSum / itemsCount);
+    }
+
+    // Helper to calculate total food cost of a recipe object
+    function calculateDishFoodCost(recipeObject) {
+      let costSum = 0;
+      for (const ingredientName in recipeObject) {
+        const qtyRequired = recipeObject[ingredientName] || 0;
+        const unitCost = avgMaterialCosts[ingredientName] || DEFAULT_MATERIAL_COSTS[ingredientName] || 0;
+        costSum += qtyRequired * unitCost;
+      }
+      return costSum;
+    }
+
+    // Render discrepancy table with visual cash loss conversion
+    function renderDiscrepancyTable(discrepancies) {
+      const tbody = document.getElementById('report-table-body');
+      tbody.innerHTML = "";
+
+      if (!Array.isArray(discrepancies) || discrepancies.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">Chưa có dữ liệu hao hụt.</td></tr>`;
+        return;
+      }
+
+      discrepancies.forEach(d => {
+        let diffClass = '';
+        let cashLossText = '-';
+        let cashLossVal = 0;
+
+        if (typeof d.actual === 'number') {
+          diffClass = d.diff < 0 ? 'diff-negative' : (d.diff > 0 ? 'diff-positive' : '');
+          
+          // If discrepancy is negative (loss/wasted material), calculate monetary value of loss
+          if (d.diff < 0) {
+            const unitCost = avgMaterialCosts[d.name] || DEFAULT_MATERIAL_COSTS[d.name] || 0;
+            cashLossVal = Math.round(Math.abs(d.diff) * unitCost);
+            cashLossText = `Lãng phí -$${cashLossVal.toLocaleString()} TWD`;
+          } else if (d.diff > 0) {
+            const unitCost = avgMaterialCosts[d.name] || DEFAULT_MATERIAL_COSTS[d.name] || 0;
+            cashLossVal = Math.round(d.diff * unitCost);
+            cashLossText = `Tiết kiệm +$${cashLossVal.toLocaleString()} TWD`;
+          } else {
+            cashLossText = 'Cân đối $0';
+          }
+        }
+
+        const cleanName = d.name.replace(/\s*\(.*?\)/, "");
+        const unit = d.name.includes("(g)") ? "g" : (d.name.includes("(lát)") ? "lát" : (d.name.includes("(cái)") ? "cái" : "ổ"));
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong>${cleanName}</strong> <span style="font-size:12px; color:var(--text-muted);">(${unit})</span></td>
+          <td style="font-weight:600;">${d.theoretical.toLocaleString()}</td>
+          <td style="font-weight:600;">${typeof d.actual === 'number' ? d.actual.toLocaleString() : 'Chưa kiểm'}</td>
+          <td>
+            <span class="${diffClass}">
+              ${typeof d.actual === 'number' ? (d.diff > 0 ? `+${d.diff.toLocaleString()}` : d.diff.toLocaleString()) : '-'}
+            </span>
+          </td>
+          <td style="font-weight:700; color:${d.diff < 0 ? 'var(--danger)' : (d.diff > 0 ? 'var(--success)' : 'inherit')};">${cashLossText}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Auto warning for low physical inventory
+    function checkLowStockAlerts(discrepancies) {
+      const wrap = document.getElementById('low-stock-alert-wrap');
+      wrap.innerHTML = "";
+
+      const lowItems = [];
+      discrepancies.forEach(d => {
+        if (typeof d.actual === 'number') {
+          // Low stock threshold: e.g. Bánh mì < 30 ổ, Thịt xíu < 500g, Chả < 20 lát, v.v.
+          let limit = 0;
+          if (d.name.includes("Bánh mì")) limit = 30;
+          else if (d.name.includes("Thịt")) limit = 600;
+          else if (d.name.includes("Chả")) limit = 50;
+          else if (d.name.includes("Ly")) limit = 40;
+
+          if (d.actual < limit) {
+            lowItems.push(`${d.name.replace(/\s*\(.*?\)/, "")} (Còn ${d.actual})`);
+          }
+        }
+      });
+
+      if (lowItems.length > 0) {
+        wrap.innerHTML = `
+          <div class="alert-banner">
+            <span style="font-size: 20px;">⚠️</span>
+            <div>
+              <strong>Cảnh báo sắp hết nguyên liệu:</strong> ${lowItems.join(', ')}. Hãy chuẩn bị kế hoạch nhập thêm hàng sớm!
+            </div>
+          </div>
+        `;
+        wrap.style.display = "block";
+      } else {
+        wrap.style.display = "none";
+      }
+    }
+
+    // -------------------------------------------------------------
+    // INTERACTIVE RECIPE CONFIGURATOR LOGIC
+    // -------------------------------------------------------------
     function renderRecipeEditor() {
       const container = document.getElementById('recipe-editor-container');
-      container.innerHTML = '';
-      
-      for (const itemName in cachedRecipes) {
-        const itemObj = cachedRecipes[itemName];
-        const section = document.createElement('div');
-        section.style.marginBottom = '20px';
-        section.style.padding = '10px';
-        section.style.background = '#f9fafb';
-        section.style.borderRadius = '8px';
-        section.style.border = '1px solid #e5e7eb';
+      container.innerHTML = "";
+
+      let count = 0;
+
+      for (const recipeName in cachedRecipes) {
+        const mapping = RECIPE_TO_MENU_MAPPING[recipeName] || { key: recipeName, category: "misc", label: recipeName };
+        const menuCategory = cachedMenu[mapping.category] || {};
+        const retailPrice = menuCategory[mapping.key] || 0;
         
-        let html = `<h3 style="margin-top:0; font-size:15px; color:var(--primary);">${itemName}</h3>`;
+        const card = document.createElement('div');
+        card.className = "accordion-item";
+        card.id = `recipe-accordion-${count}`;
         
-        for (const ingName in itemObj) {
-          const id = `recipe-${encodeURIComponent(itemName)}-${encodeURIComponent(ingName)}`;
-          html += `
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-size: 14px;">${ingName}</span>
-              <input type="number" id="${id}" value="${itemObj[ingName]}" style="width: 80px; padding: 5px; border: 1px solid #ccc; border-radius: 4px;" data-item="${itemName}" data-ing="${ingName}">
+        const initialFoodCost = calculateDishFoodCost(cachedRecipes[recipeName]);
+        const initialMargin = retailPrice > 0 ? Math.round(((retailPrice - initialFoodCost) / retailPrice) * 100) : 0;
+
+        let headerHtml = `
+          <div class="accordion-header" onclick="toggleAccordion(${count})">
+            <div class="accordion-header-left">
+              <span style="font-size:18px;">🥪</span>
+              <div>
+                <div style="font-size:16px;">${mapping.label}</div>
+                <div class="accordion-title-trans">${mapping.key} ($${retailPrice} TWD)</div>
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; align-items:center;">
+              <span class="accordion-cost-badge" id="rec-cost-badge-${count}">Vốn: $${initialFoodCost.toFixed(1)}</span>
+              <span class="badge-margin ${initialMargin >= 65 ? 'excellent' : (initialMargin >= 50 ? 'warning' : 'bad')}" id="rec-margin-badge-${count}">${initialMargin}% Marg.</span>
+              <span id="accordion-arrow-${count}" style="font-size: 14px; transition: var(--transition);">▼</span>
+            </div>
+          </div>
+        `;
+
+        let bodyHtml = `<div class="accordion-body">`;
+        
+        // Loop ingredients sliders
+        for (const ingName in cachedRecipes[recipeName]) {
+          const qty = cachedRecipes[recipeName][ingName];
+          const cleanIng = ingName.replace(/\s*\(.*?\)/, "");
+          const unit = ingName.includes("(g)") ? "g" : (ingName.includes("(lát)") ? "lát" : (ingName.includes("(cái)") ? "cái" : "ổ"));
+          
+          let maxRange = 10;
+          if (unit === 'g') maxRange = 200;
+          else if (unit === 'lát' || unit === 'cái') maxRange = 15;
+
+          const sliderId = `slide-${count}-${encodeURIComponent(ingName)}`;
+          bodyHtml += `
+            <div class="slider-row">
+              <div class="slider-info">
+                <span>${cleanIng} (${unit})</span>
+                <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Giá nhập ước tính: $${(avgMaterialCosts[ingName] || DEFAULT_MATERIAL_COSTS[ingName] || 0).toFixed(2)}/u</span>
+              </div>
+              <div class="slider-input-group">
+                <input type="range" id="${sliderId}" min="0" max="${maxRange}" step="${unit === 'g' ? '5' : '1'}" value="${qty}" 
+                  oninput="onRecipeSliderInput('${recipeName}', '${ingName}', this.value, ${count}, ${retailPrice})"
+                  data-dish="${recipeName}" data-ing="${ingName}">
+                <div class="slider-val-box" id="val-box-${count}-${encodeURIComponent(ingName)}">${qty} ${unit}</div>
+              </div>
             </div>
           `;
         }
-        section.innerHTML = html;
-        container.appendChild(section);
+
+        // Add live cost meter bar
+        bodyHtml += `
+          <div style="margin-top: 14px; font-size:13px; font-weight:700; color:var(--text-muted);">
+            TỶ LỆ GIÁ VỐN/GIÁ BÁN LẺ (FOOD COST RATIO): <span id="ratio-text-${count}">${Math.round((initialFoodCost / (retailPrice || 1)) * 100)}%</span>
+          </div>
+          <div class="cost-progress-wrap">
+            <div class="cost-progress-bar" id="ratio-progress-${count}" style="width: ${Math.min(100, Math.round((initialFoodCost / (retailPrice || 1)) * 100))}%"></div>
+          </div>
+        </div>`;
+
+        card.innerHTML = headerHtml + bodyHtml;
+        container.appendChild(card);
+        count++;
       }
     }
 
-    async function saveRecipes() {
-      const password = document.getElementById('admin-pass').value;
-      if (!password) return alert("Cần mật khẩu Admin!");
+    function toggleAccordion(idx) {
+      const items = document.querySelectorAll('.accordion-item');
+      const arrow = document.getElementById(`accordion-arrow-${idx}`);
+      const isOpening = !items[idx].classList.contains('active');
 
-      const newRecipes = JSON.parse(JSON.stringify(cachedRecipes));
-      const inputs = document.querySelectorAll('#recipe-editor-container input');
-      inputs.forEach(input => {
-        const itemName = input.getAttribute('data-item');
-        const ingName = input.getAttribute('data-ing');
-        newRecipes[itemName][ingName] = Number(input.value) || 0;
+      // Close all other accordions
+      items.forEach((item, i) => {
+        item.classList.remove('active');
+        const a = document.getElementById(`accordion-arrow-${i}`);
+        if (a) a.innerText = '▼';
       });
 
-      const btn = event.target; btn.disabled = true; btn.innerText = "Đang lưu...";
-      const res = await apiCall('/api/recipes', { password, recipes: newRecipes });
-      btn.disabled = false; btn.innerText = "Lưu Định Lượng";
+      if (isOpening) {
+        items[idx].classList.add('active');
+        arrow.innerText = '▲';
+      }
+    }
+
+    // Handles live reactive calculation as Owner slides the recipe controls
+    function onRecipeSliderInput(dishName, ingName, value, accordionIndex, retailPrice) {
+      const unit = ingName.includes("(g)") ? "g" : (ingName.includes("(lát)") ? "lát" : (ingName.includes("(cái)") ? "cái" : "ổ"));
+      const valBox = document.getElementById(`val-box-${accordionIndex}-${encodeURIComponent(ingName)}`);
+      valBox.innerText = `${value} ${unit}`;
+
+      // Calculate new live cost contribution of this dish accordion
+      const recipeSnapshot = { ...cachedRecipes[dishName] };
+      recipeSnapshot[ingName] = parseFloat(value) || 0;
+
+      const liveCost = calculateDishFoodCost(recipeSnapshot);
+      const liveMargin = retailPrice > 0 ? Math.round(((retailPrice - liveCost) / retailPrice) * 100) : 0;
+      const ratio = retailPrice > 0 ? Math.round((liveCost / retailPrice) * 100) : 0;
+
+      // Update Header badges in real time
+      document.getElementById(`rec-cost-badge-${accordionIndex}`).innerText = `Vốn: $${liveCost.toFixed(1)}`;
+      
+      const marginBadge = document.getElementById(`rec-margin-badge-${accordionIndex}`);
+      marginBadge.innerText = `${liveMargin}% Marg.`;
+      marginBadge.className = `badge-margin ${liveMargin >= 65 ? 'excellent' : (liveMargin >= 50 ? 'warning' : 'bad')}`;
+
+      // Update progress meter
+      document.getElementById(`ratio-text-${accordionIndex}`).innerText = `${ratio}%`;
+      document.getElementById(`ratio-progress-${accordionIndex}`).style.width = `${Math.min(100, ratio)}%`;
+    }
+
+    // Save configuration back to Cloudflare KV
+    async function saveRecipes(btn) {
+      const password = adminPassword; // Sử dụng mật khẩu động đã xác thực thành công
+      
+      // Clone original recipe database structure
+      const updatedRecipes = JSON.parse(JSON.stringify(cachedRecipes));
+      
+      const inputs = document.querySelectorAll('#recipe-editor-container input[type="range"]');
+      inputs.forEach(input => {
+        const dishName = input.getAttribute('data-dish');
+        const ingName = input.getAttribute('data-ing');
+        updatedRecipes[dishName][ingName] = parseFloat(input.value) || 0;
+      });
+
+      const oldText = btn.innerText;
+      btn.innerText = "Đang đồng bộ..."; btn.disabled = true;
+
+      const res = await apiPost('/api/recipes', { password, recipes: updatedRecipes });
+      
+      btn.innerText = oldText; btn.disabled = false;
 
       if (res) {
-        cachedRecipes = newRecipes;
-        showToast("Đã lưu định lượng thành công!");
-        document.getElementById('recipe-modal').style.display = 'none';
+        cachedRecipes = updatedRecipes;
+        showToast("Đã lưu định lượng nguyên liệu mới thành công!");
+        // Re-calculate dashboard metrics
+        await loadReports();
       }
     }
   </script>
